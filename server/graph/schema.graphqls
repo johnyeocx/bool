@@ -1,0 +1,154 @@
+scalar MongoID
+scalar Upload
+scalar Date
+
+type User {
+  id: MongoID!
+  username: String!
+  email: String!
+  password: String!
+  profileImg: String!
+  settingsId: MongoID!
+  events: [MongoID!]!
+  friendships: [MongoID!]!
+}
+
+type UserSetting {
+  id: MongoID!
+  private: Boolean!
+}
+
+type Event {
+  # information
+  id: MongoID!
+  creator: String!
+  creationDate: Date!
+  members: [String!]!
+  eventDP: String!
+
+  # data
+  name: String!
+  description: String!
+  # location: [Float!]!
+  date: String!
+  photos: [String!]!
+  private: Boolean!
+}
+
+type Friendship {
+  id: MongoID!
+  sourceId: String!
+  targetId: String!
+  sourceName: String!
+  targetName: String!
+  status: Boolean!
+  creationDate: Date!
+}
+
+type Message {
+  id: String!
+  messageType: Int!
+  body: String!
+  sender: String!
+  room: String!
+}
+
+type Chat {
+  id: MongoID!
+  eventId: MongoID!
+  messages: [Message]
+  count: Int!
+  bucket: Int!
+  active: Boolean!
+}
+
+type Query {
+  users: [User!]!
+  user(username: String!): User!
+  eventFromId(eventId: MongoID!): Event!
+  eventsFromIds(eventIds: [String!]!): [Event!]!
+  friendshipsToAdd(userId: MongoID!): [Friendship!]!
+  friendshipsAwaitingAdd(userId: MongoID!): [Friendship!]!
+  hello: String!
+}
+
+# inputs and mutation
+input NewUser {
+  username: String!
+  email: String!
+  password: String!
+  profileImg: Upload!
+}
+
+input Login {
+  username: String!
+  password: String!
+}
+
+input RefreshTokenInput {
+  token: String!
+}
+
+input NewEvent {
+  name: String!
+  description: String!
+  date: String!
+  members: [String!]!
+  private: Boolean!
+  eventDP: Upload!
+}
+
+input NewFriendship {
+  sourceId: String!
+  targetId: String!
+}
+
+input AddUsersToEvent {
+  eventId: MongoID!
+  # userIds: [MongoID!]!
+  usernames: [String!]!
+}
+
+input AddPhotos {
+  eventId: MongoID!
+  photoUrls: [String!]!
+}
+
+input ChangeDisplay {
+  eventId: MongoID!
+  photoUrl: String!
+  oldUrl: String!
+}
+
+input ChangeDetails {
+  eventId: MongoID!
+  name: String!
+  description: String!
+}
+
+type Mutation {
+  # User
+  createUser(input: NewUser!): String!
+  getUser(input: String!): User!
+  getUsers(userIds: [MongoID!]!): [User!]!
+  getUsersByUsernames(usernames: [String!]!): [User!]!
+
+  # Auth
+  login(input: Login!): String!
+  refreshToken(input: RefreshTokenInput!): String!
+  authenticate: String!
+
+  # Event
+  createEvent(input: NewEvent!): String!
+  addPhotos(input: AddPhotos!): String!
+  addFriend(input: NewFriendship!): String!
+  addUsersToEvent(input: AddUsersToEvent!): Int!
+  eventsFromIds(eventIds: [String!]!): [Event!]!
+  changeDisplay(input: ChangeDisplay!): Int!
+  changeDetails(input: ChangeDetails!): Int!
+  uploadPhoto(input: String!): [String!]!
+  getDisplayUrl(input: String!): [String!]!
+
+  # Chat
+  chatBuckets(eventId: MongoID!): [Chat!]!
+}
