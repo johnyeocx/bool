@@ -137,6 +137,9 @@ func AddUsersToEvent(input model.AddUsersToEvent,  client *mongo.Client) int{
 		return -1
 	}
 	
+	if (res.ModifiedCount == 0) {
+		return -1
+	}
 	fmt.Printf("Added %v users to an event!\n", res.ModifiedCount)
 	return int(res.ModifiedCount)
 }

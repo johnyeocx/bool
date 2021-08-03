@@ -4,6 +4,7 @@ import { View, StyleSheet, Image } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { Item } from "react-native-paper/lib/typescript/components/List/List";
 import { Event } from "../../../../../types/types";
+import FastImage from "react-native-fast-image";
 
 interface EventProps {
   username: string;
@@ -20,7 +21,10 @@ function Gallery({ event, username }: EventProps) {
   const renderItem = ({ item }: itemProps) => {
     return (
       <View style={styles.imageContainer}>
-        <Image style={styles.eventImage} source={{ uri: item }} />
+        <FastImage
+          style={styles.eventImage}
+          source={{ uri: item, priority: FastImage.priority.normal }}
+        />
       </View>
     );
   };

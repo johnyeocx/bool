@@ -47,7 +47,7 @@ func (r *mutationResolver) AddPhotos(ctx context.Context, input model.AddPhotos)
 
 func (r *mutationResolver) AddUsersToEvent(ctx context.Context, input model.AddUsersToEvent) (int, error) {
 	res := events.AddUsersToEvent(input, client)
-	if res == 1 {
+	if res == -1 {
 		return -1, err
 	} else {
 		return res, nil

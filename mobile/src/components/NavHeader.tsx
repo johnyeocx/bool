@@ -7,7 +7,7 @@ export default function NavHeader({ name }: any) {
   const theme = React.useContext(ThemeContext);
   return (
     <View style={styles(theme).switch}>
-      <Text style={styles(theme).eventName}>Edit</Text>
+      <Text style={styles(theme).eventName}>{name}</Text>
     </View>
   );
 }

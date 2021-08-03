@@ -14,12 +14,11 @@ import {
   Platform,
   TextInput,
 } from "react-native";
-import { Event } from "../../../../types/types";
-import {} from "react-native-paper";
+import { Event, User } from "../../../../types/types";
 import AddFriend from "./AddFriend";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/reducers/reducer";
-import { GET_UPLOAD_URL, GET_USER_2 } from "../../../../gql/mutations";
+import { GET_UPLOAD_URL, GET_USER_1 } from "../../../../gql/mutations";
 import { useMutation } from "@apollo/client";
 import { Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -30,6 +29,9 @@ import {
 } from "../../../../gql/mutations/eventMutations";
 import { uploadImage } from "../../../../helpers/photos";
 import NavHeader from "../../../../components/NavHeader";
+import FastImage from "react-native-fast-image";
+import { currentMembers } from "../../../../apollo/cache";
+import { NavLeft } from "../../../../components/NavLeft";
 
 interface EventSettingProps {
   navigation: any;
@@ -38,6 +40,12 @@ interface EventSettingProps {
 }
 
 function EventSettings({ navigation, route }: EventSettingProps) {
+  const [friends, setFriends] = useState<Array<User>>([]);
+  const [getFriends] = useMutation(GET_USER_1, {
+    onError(err) {
+      console.log(err);
+    },
+  });
   const dispatch = useDispatch();
   const event = useSelector((state: RootState) => state.currentEvent);
   React.useLayoutEffect(() => {
@@ -48,8 +56,12 @@ function EventSettings({ navigation, route }: EventSettingProps) {
       },
       headerTitleStyle: { color: "white" },
       headerTitle: () => <NavHeader name="Edit" />,
+      headerLeft: () => (
+        <NavLeft route={route} navigation={navigation} source={event.eventDP} />
+      ),
     });
   }, [navigation]);
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -66,11 +78,6 @@ function EventSettings({ navigation, route }: EventSettingProps) {
   const [description, setDescription] = useState(event.description);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [getFriends] = useMutation(GET_USER_2, {
-    onError(err) {
-      console.log(err);
-    },
-  });
   const [getUrl] = useMutation(GET_UPLOAD_URL, {
     onError(err) {
       console.log(err);
@@ -86,22 +93,19 @@ function EventSettings({ navigation, route }: EventSettingProps) {
       console.log(err);
     },
   });
-
-  const [members, setMembers] = useState([]);
   const [file, setFile] = useState<ReactNativeFile | null>(null);
 
-  const renderMembers = async () => {
+  const renderFriends = async () => {
     const { data } = await getFriends({
-      variables: { usernames: event.members },
+      variables: { userIds: route.params.myself.friendships },
     });
-
-    if (data && data.getUsersByUsernames) {
-      setMembers(data.getUsersByUsernames);
+    if (data && data.getUsers) {
+      setFriends(data.getUsers);
     }
   };
 
   useEffect(() => {
-    renderMembers();
+    renderFriends();
     return () => {};
   }, []);
 
@@ -110,7 +114,13 @@ function EventSettings({ navigation, route }: EventSettingProps) {
       <View>
         <Pressable style={styles.cellContainer}>
           <View style={styles.cellLeft}>
-            <Image style={styles.userImage} source={{ uri: item.profileImg }} />
+            <FastImage
+              style={styles.userImage}
+              source={{
+                uri: item.profileImg,
+                priority: FastImage.priority.normal,
+              }}
+            />
             <Text style={styles.userName}>
               {item.username == route.params.myself.username
                 ? "You"
@@ -208,6 +218,7 @@ function EventSettings({ navigation, route }: EventSettingProps) {
           members={event.members}
           myself={route.params.myself}
           eventId={event.id}
+          friends={friends}
         />
       </Modal>
 
@@ -288,7 +299,7 @@ function EventSettings({ navigation, route }: EventSettingProps) {
           width: Dimensions.get("window").width,
           justifyContent: "flex-end",
         }}
-        data={members}
+        data={currentMembers()}
         renderItem={renderItem}
         bounces={false}
         keyExtractor={(item, index: number) => {

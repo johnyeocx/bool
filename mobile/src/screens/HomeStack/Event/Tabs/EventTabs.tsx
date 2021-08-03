@@ -1,16 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, Button, Touchable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/core";
-import Chat from "../EventScreen/Chat/Chat";
-import Gallery from "../EventScreen/Gallery/Gallery";
+import { useMutation } from "@apollo/client";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+
 import { RootState } from "../../../../redux/reducers/reducer";
 import { Theme } from "../../../../types/themeTypes";
 import { ThemeContext } from "../../../../ThemeProvider";
+import { GET_USER_2 } from "../../../../gql/mutations";
+import { currentMembers } from "../../../../apollo/cache";
+import Chat from "../EventScreen/Chat/Chat";
+import Gallery from "../EventScreen/Gallery/Gallery";
+import { NavLeft } from "../../../../components/NavLeft";
 
 const screenOptions = (
   route: RouteProp<Record<string, object | undefined>, string>,
@@ -30,7 +35,7 @@ interface EventTabsProps {
 
 const Tab = createBottomTabNavigator();
 
-const CustomHeader = ({ route, navigation, event, setEvent }: any) => {
+const CustomHeader = ({ route, navigation, event }: any) => {
   const theme = React.useContext(ThemeContext);
   return (
     <TouchableOpacity
@@ -38,7 +43,6 @@ const CustomHeader = ({ route, navigation, event, setEvent }: any) => {
       onPress={() => {
         navigation.navigate("Settings", {
           event: event,
-          setEvent: setEvent,
           myself: route.params.myself,
         });
       }}
@@ -48,40 +52,29 @@ const CustomHeader = ({ route, navigation, event, setEvent }: any) => {
   );
 };
 
-export const HeaderBack = ({ route, navigation }: any) => {
-  const theme = React.useContext(ThemeContext);
-  console.log(route.params.myself);
-  return (
-    <TouchableOpacity
-      style={{
-        flex: 1,
-        alignContent: "center",
-        justifyContent: "flex-start",
-        paddingLeft: 12,
-        flexDirection: "row",
-      }}
-      onPress={() => navigation.goBack()}
-    >
-      <Ionicons name="chevron-back" size={24} color="#f46" />
-      <View style={styles(theme).userImageContainer}>
-        <Image
-          style={styles(theme).userImage}
-          source={{ uri: route.params.myself.profileImg }}
-        />
-      </View>
-    </TouchableOpacity>
-  );
-};
-
 const EventTabs = ({ navigation, route }: EventTabsProps) => {
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const isVisible = useIsFocused();
   const theme = React.useContext(ThemeContext);
+  const [getMembers] = useMutation(GET_USER_2, {
+    onError(err) {
+      console.log(err);
+    },
+  });
+  const renderMembers = async () => {
+    const { data } = await getMembers({
+      variables: { usernames: currentEvent.members },
+    });
+
+    if (data && data.getUsersByUsernames) {
+      console.log(data);
+      currentMembers(data.getUsersByUsernames);
+    }
+  };
 
   useEffect(() => {
-    if (isVisible) {
-    }
-  }, [isVisible]);
+    renderMembers();
+  }, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -96,7 +89,13 @@ const EventTabs = ({ navigation, route }: EventTabsProps) => {
         height: 80,
         backgroundColor: "#222",
       },
-      headerLeft: () => <HeaderBack route={route} navigation={navigation} />,
+      headerLeft: () => (
+        <NavLeft
+          route={route}
+          navigation={navigation}
+          source={route.params.myself.profileImg}
+        />
+      ),
     });
   }, [navigation]);
 

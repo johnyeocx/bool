@@ -5,6 +5,7 @@ import Tabs from "../../MainTabs";
 import EventSettings from "../Event/InfoScreen/EventSettings";
 import EventTabs from "../Event/Tabs/EventTabs";
 import { ThemeContext } from "../../../ThemeProvider";
+import NavHeader from "../../../components/NavHeader";
 
 const Stack = createStackNavigator();
 
@@ -14,11 +15,10 @@ function MyStack() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
+          height: 80,
           backgroundColor: theme.colors.backgroundPrimary,
         },
-        headerTitleStyle: {
-          color: theme.colors.textPrimary,
-        },
+        headerTitle: () => <NavHeader name="Home" />,
       }}
     >
       <Stack.Screen name="Home" component={Tabs} />

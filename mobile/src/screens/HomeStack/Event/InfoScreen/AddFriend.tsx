@@ -17,6 +17,7 @@ import { User } from "../../../../types/types";
 import { GET_EVENTS } from "../../../../gql/mutations";
 import { useDispatch } from "react-redux";
 import { GET_USER_1, ADD_USERS_TO_EVENT } from "../../../../gql/mutations";
+import { currentMembers } from "../../../../apollo/cache";
 
 interface AddFriendProps {
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,30 +25,29 @@ interface AddFriendProps {
   members: Array<string>;
   myself: User;
   eventId: string;
+  friends: Array<User>;
 }
 
 function AddFriend({
   modalVisible,
   setModalVisible,
   members,
-  myself,
   eventId,
+  friends,
 }: AddFriendProps) {
-  const [friends, setFriends] = useState<Array<User>>([]);
   const [isEditable, setIsEditable] = useState<Array<boolean>>([]);
   const [isAdded, setIsAdded] = useState<Array<boolean>>([]);
-  const [getFriends] = useMutation(GET_USER_1, {
-    onError(err) {
-      console.log(err);
-    },
-  });
-  const [getEvents] = useMutation(GET_EVENTS, {
-    onError: (err) => console.log(err),
-  });
+
   const [addToEvent] = useMutation(ADD_USERS_TO_EVENT, {
     onError(err) {
       console.log(err);
     },
+    // update: (cache) => {
+    //   cache.evict({
+    //     id: cache.identify(eventId),
+    //   });
+    //   cache.gc();
+    // },
   });
   const dispatch = useDispatch();
   const areYouSure = () => {
@@ -62,10 +62,11 @@ function AddFriend({
 
   const addButtonClicked = async () => {
     let toAdd = [];
-
+    let newFriends = [];
     for (let i = 0; i < friends.length; i++) {
       if (isAdded[i]) {
         toAdd.push(friends[i].username);
+        newFriends.push(friends[i]);
         let array = [...isEditable];
         array[i] = !array[i];
         setIsEditable(array);
@@ -80,34 +81,30 @@ function AddFriend({
         },
       },
     });
-
+    console.log("RES: ", data.addUsersToEvent);
     if (data.addUsersToEvent != 0 && data.addUsersToEvent != -1) {
-      dispatch({ type: "ADD_MEMBERS", payload: toAdd });
+      // dispatch({ type: "ADD_MEMBERS", payload: toAdd });
+      currentMembers(currentMembers().concat(newFriends));
+      setModalVisible(!modalVisible);
     }
-    setModalVisible(!modalVisible);
   };
 
   useEffect(() => {
-    renderFriends();
+    renderEditable();
     return () => {};
   }, []);
 
-  const renderFriends = async () => {
-    const { data } = await getFriends({
-      variables: { userIds: myself.friendships },
+  const renderEditable = async () => {
+    friends.map((user: User) => {
+      if (members.includes(user.username)) {
+        setIsAdded((isAdded) => [...isAdded, false]);
+        setIsEditable((isEditable) => [...isEditable, false]);
+      } else {
+        setIsAdded((isAdded) => [...isAdded, false]);
+        setIsEditable((isEditable) => [...isEditable, true]);
+      }
     });
-    if (data && data.getUsers) {
-      setFriends(data.getUsers);
-      data.getUsers.map((user: User) => {
-        if (members.includes(user.username)) {
-          setIsAdded((isAdded) => [...isAdded, false]);
-          setIsEditable((isEditable) => [...isEditable, false]);
-        } else {
-          setIsAdded((isAdded) => [...isAdded, false]);
-          setIsEditable((isEditable) => [...isEditable, true]);
-        }
-      });
-    }
+    // }
   };
 
   const toggleAdded = (index: number) => {

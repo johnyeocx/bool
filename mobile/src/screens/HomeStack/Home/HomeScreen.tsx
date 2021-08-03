@@ -63,7 +63,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "#222",
         alignItems: "center",
         justifyContent: "flex-start",
         paddingTop: 100,
@@ -73,6 +73,8 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         style={{
           fontSize: 20,
           marginBottom: 30,
+          color: "white",
+          // fontFamily: "Futura",
         }}
       >
         {myself ? `${myself.username.toUpperCase()}` : "NOT SIGNED IN"}
