@@ -1,0 +1,1 @@
+../../../../../node_modules/react-native-placesearch/ios/Placesearch.h

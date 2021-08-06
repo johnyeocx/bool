@@ -3,7 +3,7 @@ import { View, Image, Button, Touchable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/core";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";
@@ -11,7 +11,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/reducers/reducer";
 import { Theme } from "../../../../types/themeTypes";
 import { ThemeContext } from "../../../../ThemeProvider";
-import { GET_USER_2 } from "../../../../gql/mutations";
+// import { GET_USER_2 } from "../../../../gql/mutations";
+import { FETCH_USERS, GET_USER_2 } from "../../../../gql/queries/userQueries";
 import { currentMembers } from "../../../../apollo/cache";
 import Chat from "../EventScreen/Chat/Chat";
 import Gallery from "../EventScreen/Gallery/Gallery";
@@ -23,9 +24,9 @@ const screenOptions = (
 ) => {
   switch (route.name) {
     case "Gallery":
-      return <Ionicons name="ios-home" size={24} color={color} />;
+      return <Ionicons name="ios-home" size={20} color={color} />;
     case "Chat":
-      return <Ionicons name="ios-create-outline" size={24} color={color} />;
+      return <Ionicons name="ios-create-outline" size={20} color={color} />;
   }
 };
 interface EventTabsProps {
@@ -56,25 +57,15 @@ const EventTabs = ({ navigation, route }: EventTabsProps) => {
   const currentEvent = useSelector((state: RootState) => state.currentEvent);
   const isVisible = useIsFocused();
   const theme = React.useContext(ThemeContext);
-  const [getMembers] = useMutation(GET_USER_2, {
-    onError(err) {
-      console.log(err);
+
+  // Fetch Users
+  const { loading, error, data } = useQuery(FETCH_USERS, {
+    variables: { userIds: currentEvent.members },
+    onCompleted: (data) => {
+      console.log("FETCH RESULT: ", data.users);
+      currentMembers(data.users);
     },
   });
-  const renderMembers = async () => {
-    const { data } = await getMembers({
-      variables: { usernames: currentEvent.members },
-    });
-
-    if (data && data.getUsersByUsernames) {
-      console.log(data);
-      currentMembers(data.getUsersByUsernames);
-    }
-  };
-
-  useEffect(() => {
-    renderMembers();
-  }, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -104,6 +95,14 @@ const EventTabs = ({ navigation, route }: EventTabsProps) => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) => screenOptions(route, color),
       })}
+      tabBarOptions={{
+        style: {
+          // borderTopColor: "#66666666",
+          backgroundColor: "#222",
+          height: 70,
+        },
+        showLabel: false,
+      }}
     >
       <Tab.Screen name="Gallery">
         {() => (

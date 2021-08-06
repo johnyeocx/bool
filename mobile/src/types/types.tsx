@@ -28,7 +28,6 @@ export interface User {
   id: string;
   username: string;
   email: string;
-  password: string;
   profileImg: string;
   settingsId: string;
   events: Array<string>;

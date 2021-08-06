@@ -19,7 +19,7 @@ import AddFriend from "./AddFriend";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/reducers/reducer";
 import { GET_UPLOAD_URL, GET_USER_1 } from "../../../../gql/mutations";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { ReactNativeFile } from "apollo-upload-client";
@@ -32,6 +32,7 @@ import NavHeader from "../../../../components/NavHeader";
 import FastImage from "react-native-fast-image";
 import { currentMembers } from "../../../../apollo/cache";
 import { NavLeft } from "../../../../components/NavLeft";
+import { FETCH_USERS } from "../../../../gql/queries/userQueries";
 
 interface EventSettingProps {
   navigation: any;
@@ -40,14 +41,6 @@ interface EventSettingProps {
 }
 
 function EventSettings({ navigation, route }: EventSettingProps) {
-  const [friends, setFriends] = useState<Array<User>>([]);
-  const [getFriends] = useMutation(GET_USER_1, {
-    onError(err) {
-      console.log(err);
-    },
-  });
-  const dispatch = useDispatch();
-  const event = useSelector((state: RootState) => state.currentEvent);
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -61,6 +54,19 @@ function EventSettings({ navigation, route }: EventSettingProps) {
       ),
     });
   }, [navigation]);
+
+  const event = useSelector((state: RootState) => state.currentEvent);
+  const [friends, setFriends] = useState<Array<User>>([]);
+  const dispatch = useDispatch();
+
+  // Fetch Friends
+  const { loading, error, data } = useQuery(FETCH_USERS, {
+    variables: { userIds: route.params.myself.friendships },
+    onCompleted: (data) => {
+      console.log("FETCH RESULT: ", data.users);
+      setFriends(data.users);
+    },
+  });
 
   useEffect(() => {
     (async () => {
@@ -94,20 +100,6 @@ function EventSettings({ navigation, route }: EventSettingProps) {
     },
   });
   const [file, setFile] = useState<ReactNativeFile | null>(null);
-
-  const renderFriends = async () => {
-    const { data } = await getFriends({
-      variables: { userIds: route.params.myself.friendships },
-    });
-    if (data && data.getUsers) {
-      setFriends(data.getUsers);
-    }
-  };
-
-  useEffect(() => {
-    renderFriends();
-    return () => {};
-  }, []);
 
   const renderItem = ({ item, index }: any) => {
     return (

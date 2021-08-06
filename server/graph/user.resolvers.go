@@ -10,7 +10,20 @@ import (
 	"github.com/johnyeocx/bool-m1/server/pkg/jwt"
 )
 
+func (r *queryResolver) Users(ctx context.Context, userIds []model.MongoID) ([]*model.User, error) {
+	return users.GetUsersByIds(userIds, client), nil
+}
 
+func (r *queryResolver) User(ctx context.Context, username string) (*model.User, error) {
+	user := users.GetUserByUsername(username, client)
+
+	fmt.Println(user)
+	if user == nil {
+		fmt.Println("no user error")
+		return nil, errors.New("no user found")
+	}
+	return user, nil
+}
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
 	user, err := users.SignUp(input, client)
 	if err != nil {
@@ -43,18 +56,4 @@ func (r *mutationResolver) GetUsersByUsernames(ctx context.Context, usernames []
 	return users.GetUsersByUsername(usernames, client), nil
 }
 
-func (r *queryResolver) User(ctx context.Context, username string) (*model.User, error) {
-	user := users.GetUserByUsername(username, client)
-
-	fmt.Println(user)
-	if user == nil {
-		fmt.Println("no user error")
-		return nil, errors.New("no user found")
-	}
-	return user, nil
-}
-
-func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
-}
 

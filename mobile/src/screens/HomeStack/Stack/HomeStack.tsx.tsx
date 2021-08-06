@@ -6,6 +6,9 @@ import EventSettings from "../Event/InfoScreen/EventSettings";
 import EventTabs from "../Event/Tabs/EventTabs";
 import { ThemeContext } from "../../../ThemeProvider";
 import NavHeader from "../../../components/NavHeader";
+import ActivityScreen from "../../CreateStack/ActivityScreen";
+import { currentScreenTitle } from "../../../apollo/cache";
+import HomeScreen from "../Home/HomeScreen";
 
 const Stack = createStackNavigator();
 
@@ -21,9 +24,16 @@ function MyStack() {
         headerTitle: () => <NavHeader name="Home" />,
       }}
     >
-      <Stack.Screen name="Home" component={Tabs} />
+      <Stack.Screen
+        name="Main"
+        component={HomeScreen}
+        // options={{
+
+        // }}
+      />
       <Stack.Screen name="Event" component={EventTabs} />
       <Stack.Screen name="Settings" component={EventSettings} />
+      {/* <Stack.Screen name="Create" component={ActivityScreen} /> */}
     </Stack.Navigator>
   );
 }

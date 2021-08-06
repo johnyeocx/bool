@@ -1,0 +1,25 @@
+{
+  "name": "react-native-placesearch",
+  "version": "3.0.3",
+  "summary": "A simple package where you can easily search google places and customize package ui",
+  "description": "react-native-placesearch",
+  "homepage": "https://github.com/github_account/react-native-placesearch",
+  "license": "MIT",
+  "authors": {
+    "Your Name": "yourname@email.com"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source": {
+    "git": "https://github.com/github_account/react-native-placesearch.git",
+    "tag": "3.0.3"
+  },
+  "source_files": "ios/**/*.{h,m,swift}",
+  "requires_arc": true,
+  "dependencies": {
+    "React": [
+
+    ]
+  }
+}

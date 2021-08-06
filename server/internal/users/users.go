@@ -21,105 +21,7 @@ func (m *WrongUsernameOrPasswordError) Error() string {
 	return "wrong username or password"
 }
 
-func UpdateEventByUsername(username string, eventId model.MongoID, client *mongo.Client) error {
-	var usersCollection = client.Database("test").Collection("users")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
-	res, err := usersCollection.UpdateOne(ctx, 
-		bson.M{"username": username},
-		bson.M{
-			"$push": bson.M{"events": eventId},
-		},
-	)
-	if err != nil {
-    	log.Fatal(err)
-	}
-	fmt.Printf("Updated %v Documents!\n", res.ModifiedCount)
-	return nil
-}
-
-func GetUserByUsername(username string, client *mongo.Client) (*model.User){
-
-	var usersCollection = client.Database("test").Collection("users")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	user := model.User{}
-	res := usersCollection.FindOne(ctx, bson.M{"username": username}).Decode(&user)
-	if (res != nil) {
-		if res == mongo.ErrNoDocuments {
-			fmt.Println("not found")
-			return nil
-		}
-	}
-	return &user
-}	
-
-func GetUsersByUsername(usernames []string, client *mongo.Client) ([]*model.User) {
-	userCollection := client.Database("test").Collection("users")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	users := []*model.User{}
-	cursor, err := userCollection.Find(ctx, bson.M{"username": bson.M{"$in": usernames}})
-	if err != nil {
-    	log.Fatal(err)
-	}
-	defer cursor.Close(ctx)
-	for cursor.Next(ctx) {
-		var user model.User
-		if err = cursor.Decode(&user); err != nil {
-			log.Fatal(err)
-		}
-		users = append(users, &user)
-	}
-	return users
-}
-
-func GetUserById(id model.MongoID, client *mongo.Client) (*model.User) {
-	var usersCollection = client.Database("test").Collection("users")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	user := model.User{}
-	res := usersCollection.FindOne(ctx, bson.M{"_id": id}).Decode(&user)
-	if (res != nil) {
-		if res == mongo.ErrNoDocuments {
-			fmt.Println("not found")
-			return nil
-		}
-	}
-	return &user
-}
-
-func GetUsersByIds(ids []model.MongoID, client *mongo.Client) ([]*model.User) {
-	userCollection := client.Database("test").Collection("users")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	users := []*model.User{}
-	cursor, err := userCollection.Find(ctx, bson.M{"_id": bson.M{"$in": ids}})
-	if err != nil {
-    	log.Fatal(err)
-	}
-	defer cursor.Close(ctx)
-	for cursor.Next(ctx) {
-		var user model.User
-		if err = cursor.Decode(&user); err != nil {
-			log.Fatal(err)
-		}
-		users = append(users, &user)
-	}
-	return users
-}
-
-func Authenticate(input model.Login, client *mongo.Client) bool {
-	var usersCollection = client.Database("test").Collection("users")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	var user *model.User
-	res := usersCollection.FindOne(ctx, bson.M{"username": input.Username})
-	res.Decode(&user)
-	return CheckPasswordHash(input.Password, user.Password)
-}
-
+// CREATE
 func SignUp(input model.NewUser, client *mongo.Client) (*model.User, error){
 	check := GetUserByUsername(input.Username, client) 
 	if (check != nil) {
@@ -192,7 +94,95 @@ func SignUp(input model.NewUser, client *mongo.Client) (*model.User, error){
 	}, nil
 }	
 
-// utils
+// READ
+func GetUserById(id model.MongoID, client *mongo.Client) (*model.User) {
+	var usersCollection = client.Database("test").Collection("users")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	user := model.User{}
+	res := usersCollection.FindOne(ctx, bson.M{"_id": id}).Decode(&user)
+	if (res != nil) {
+		if res == mongo.ErrNoDocuments {
+			fmt.Println("not found")
+			return nil
+		}
+	}
+	return &user
+}
+func GetUsersByIds(ids []model.MongoID, client *mongo.Client) ([]*model.User) {
+	userCollection := client.Database("test").Collection("users")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	users := []*model.User{}
+	cursor, err := userCollection.Find(ctx, bson.M{"_id": bson.M{"$in": ids}})
+	if err != nil {
+    	log.Fatal(err)
+	}
+	defer cursor.Close(ctx)
+	for cursor.Next(ctx) {
+		var user model.User
+		if err = cursor.Decode(&user); err != nil {
+			log.Fatal(err)
+		}
+		users = append(users, &user)
+	}
+	return users
+}
+func GetUserByUsername(username string, client *mongo.Client) (*model.User){
+
+	var usersCollection = client.Database("test").Collection("users")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	user := model.User{}
+	res := usersCollection.FindOne(ctx, bson.M{"username": username}).Decode(&user)
+	if (res != nil) {
+		if res == mongo.ErrNoDocuments {
+			fmt.Println("not found")
+			return nil
+		}
+	}
+	return &user
+}	
+func GetUsersByUsername(usernames []string, client *mongo.Client) ([]*model.User) {
+	userCollection := client.Database("test").Collection("users")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	users := []*model.User{}
+	cursor, err := userCollection.Find(ctx, bson.M{"username": bson.M{"$in": usernames}})
+	if err != nil {
+    	log.Fatal(err)
+	}
+	defer cursor.Close(ctx)
+	for cursor.Next(ctx) {
+		var user model.User
+		if err = cursor.Decode(&user); err != nil {
+			log.Fatal(err)
+		}
+		users = append(users, &user)
+	}
+	return users
+}
+
+// UPDATE
+func UpdateEventByUserId(userId model.MongoID, eventId model.MongoID, client *mongo.Client) error {
+	var usersCollection = client.Database("test").Collection("users")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	res, err := usersCollection.UpdateOne(ctx, 
+		bson.M{"_id": userId},
+		bson.M{
+			"$push": bson.M{"events": eventId},
+		},
+	)
+	if err != nil {
+    	log.Fatal(err)
+	}
+	fmt.Printf("Updated %v Documents!\n", res.ModifiedCount)
+	return nil
+}
+
+// UTILS
 func HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err
@@ -201,4 +191,14 @@ func HashPassword(password string) (string, error) {
 func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
+}
+
+func Authenticate(input model.Login, client *mongo.Client) bool {
+	var usersCollection = client.Database("test").Collection("users")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	var user *model.User
+	res := usersCollection.FindOne(ctx, bson.M{"username": input.Username})
+	res.Decode(&user)
+	return CheckPasswordHash(input.Password, user.Password)
 }

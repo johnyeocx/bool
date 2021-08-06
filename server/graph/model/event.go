@@ -4,22 +4,11 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 )
 
-type AddPhotos struct {
-	EventID   MongoID   `json:"eventId"`
-	PhotoUrls []string `json:"photoUrls"`
-}
-
-
-type AddUsersToEvent struct {
-	EventID   MongoID   `json:"eventId"`
-	Usernames []string `json:"photoUrls"`
-}
-
 type Event struct {
 	ID           MongoID  `json:"id" bson:"_id"`
 	Creator      string  `json:"creator" bson:"creator"`
 	CreationDate string   `json:"creationDate" bson:"creation_date"`
-	Members      []string `json:"members" bson:"members"`
+	Members      []MongoID `json:"members" bson:"members"`
 	EventDp      string   `json:"eventDP" bson:"event_img"`
 	Name         string   `json:"name" bson:"name"`
 	Description  string   `json:"description" bson:"description"`
@@ -32,9 +21,21 @@ type NewEvent struct {
 	Name        string         `json:"name"`
 	Description string         `json:"description"`
 	Date        string         `json:"date"`
-	Members     []string       `json:"members"`
+	Members     []MongoID       `json:"members"`
 	Private     bool           `json:"private"`
 	EventDp     graphql.Upload `json:"eventDP"`
+}
+
+// INPUTS
+
+type AddPhotos struct {
+	EventID   MongoID   `json:"eventId"`
+	PhotoUrls []string `json:"photoUrls"`
+}
+
+type AddUsersToEvent struct {
+	EventID   MongoID   `json:"eventId"`
+	UserIds []MongoID `json:"photoUrls"`
 }
 
 type ChangeDisplay struct {

@@ -112,7 +112,7 @@ type ComplexityRoot struct {
 		FriendshipsToAdd       func(childComplexity int, userID model.MongoID) int
 		Hello                  func(childComplexity int) int
 		User                   func(childComplexity int, username string) int
-		Users                  func(childComplexity int) int
+		Users                  func(childComplexity int, userIds []model.MongoID) int
 	}
 
 	User struct {
@@ -160,7 +160,7 @@ type MutationResolver interface {
 	ChatBuckets(ctx context.Context, eventID model.MongoID) ([]*model.Chat, error)
 }
 type QueryResolver interface {
-	Users(ctx context.Context) ([]*model.User, error)
+	Users(ctx context.Context, userIds []model.MongoID) ([]*model.User, error)
 	User(ctx context.Context, username string) (*model.User, error)
 	EventFromID(ctx context.Context, eventID model.MongoID) (*model.Event, error)
 	EventsFromIds(ctx context.Context, eventIds []string) ([]*model.Event, error)
@@ -651,7 +651,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			break
 		}
 
-		return e.complexity.Query.Users(childComplexity), true
+		args, err := ec.field_Query_users_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Users(childComplexity, args["userIds"].([]model.MongoID)), true
 
 	case "User.email":
 		if e.complexity.User.Email == nil {
@@ -812,7 +817,7 @@ type Event {
   id: MongoID!
   creator: String!
   creationDate: Date!
-  members: [String!]!
+  members: [MongoID!]!
   eventDP: String!
 
   # data
@@ -852,7 +857,7 @@ type Chat {
 }
 
 type Query {
-  users: [User!]!
+  users(userIds: [MongoID!]!): [User!]!
   user(username: String!): User!
   eventFromId(eventId: MongoID!): Event!
   eventsFromIds(eventIds: [String!]!): [Event!]!
@@ -861,7 +866,9 @@ type Query {
   hello: String!
 }
 
-# inputs and mutation
+# INPUTS
+
+# 1. USER
 input NewUser {
   username: String!
   email: String!
@@ -878,24 +885,24 @@ input RefreshTokenInput {
   token: String!
 }
 
+# 2. EVENT
 input NewEvent {
   name: String!
   description: String!
   date: String!
-  members: [String!]!
+  members: [MongoID!]!
   private: Boolean!
   eventDP: Upload!
+}
+
+input AddUsersToEvent {
+  eventId: MongoID!
+  userIds: [MongoID!]!
 }
 
 input NewFriendship {
   sourceId: String!
   targetId: String!
-}
-
-input AddUsersToEvent {
-  eventId: MongoID!
-  # userIds: [MongoID!]!
-  usernames: [String!]!
 }
 
 input AddPhotos {
@@ -1279,6 +1286,21 @@ func (ec *executionContext) field_Query_user_args(ctx context.Context, rawArgs m
 	return args, nil
 }
 
+func (ec *executionContext) field_Query_users_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 []model.MongoID
+	if tmp, ok := rawArgs["userIds"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userIds"))
+		arg0, err = ec.unmarshalNMongoID2ᚕgithubᚗcomᚋjohnyeocxᚋboolᚑm1ᚋserverᚋgraphᚋmodelᚐMongoIDᚄ(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["userIds"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field___Type_enumValues_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -1659,9 +1681,9 @@ func (ec *executionContext) _Event_members(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]string)
+	res := resTmp.([]model.MongoID)
 	fc.Result = res
-	return ec.marshalNString2ᚕstringᚄ(ctx, field.Selections, res)
+	return ec.marshalNMongoID2ᚕgithubᚗcomᚋjohnyeocxᚋboolᚑm1ᚋserverᚋgraphᚋmodelᚐMongoIDᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Event_eventDP(ctx context.Context, field graphql.CollectedField, obj *model.Event) (ret graphql.Marshaler) {
@@ -3017,9 +3039,16 @@ func (ec *executionContext) _Query_users(ctx context.Context, field graphql.Coll
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_users_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Users(rctx)
+		return ec.resolvers.Query().Users(rctx, args["userIds"].([]model.MongoID))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4831,11 +4860,11 @@ func (ec *executionContext) unmarshalInputAddUsersToEvent(ctx context.Context, o
 			if err != nil {
 				return it, err
 			}
-		case "usernames":
+		case "userIds":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("usernames"))
-			it.Usernames, err = ec.unmarshalNString2ᚕstringᚄ(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userIds"))
+			it.UserIds, err = ec.unmarshalNMongoID2ᚕgithubᚗcomᚋjohnyeocxᚋboolᚑm1ᚋserverᚋgraphᚋmodelᚐMongoIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4979,7 +5008,7 @@ func (ec *executionContext) unmarshalInputNewEvent(ctx context.Context, obj inte
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("members"))
-			it.Members, err = ec.unmarshalNString2ᚕstringᚄ(ctx, v)
+			it.Members, err = ec.unmarshalNMongoID2ᚕgithubᚗcomᚋjohnyeocxᚋboolᚑm1ᚋserverᚋgraphᚋmodelᚐMongoIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}

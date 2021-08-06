@@ -23,7 +23,7 @@ type Event {
   id: MongoID!
   creator: String!
   creationDate: Date!
-  members: [String!]!
+  members: [MongoID!]!
   eventDP: String!
 
   # data
@@ -63,16 +63,25 @@ type Chat {
 }
 
 type Query {
-  users: [User!]!
+  # USER
+  users(userIds: [MongoID!]!): [User!]!
   user(username: String!): User!
+
+  # EVENT
   eventFromId(eventId: MongoID!): Event!
   eventsFromIds(eventIds: [String!]!): [Event!]!
+
+  # FRIENDSHIPS
   friendshipsToAdd(userId: MongoID!): [Friendship!]!
   friendshipsAwaitingAdd(userId: MongoID!): [Friendship!]!
+
+  # UTIL
   hello: String!
 }
 
-# inputs and mutation
+# INPUTS
+
+# 1. USER
 input NewUser {
   username: String!
   email: String!
@@ -89,24 +98,24 @@ input RefreshTokenInput {
   token: String!
 }
 
+# 2. EVENT
 input NewEvent {
   name: String!
   description: String!
   date: String!
-  members: [String!]!
+  members: [MongoID!]!
   private: Boolean!
   eventDP: Upload!
+}
+
+input AddUsersToEvent {
+  eventId: MongoID!
+  userIds: [MongoID!]!
 }
 
 input NewFriendship {
   sourceId: String!
   targetId: String!
-}
-
-input AddUsersToEvent {
-  eventId: MongoID!
-  # userIds: [MongoID!]!
-  usernames: [String!]!
 }
 
 input AddPhotos {

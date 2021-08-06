@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/johnyeocx/bool-m1/server/graph/model"
-	"github.com/johnyeocx/bool-m1/server/internal/users"
 	"github.com/johnyeocx/bool-m1/server/uploader"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -83,11 +82,24 @@ func CreateEvent(input model.NewEvent, creatorName string, client *mongo.Client)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	convertedId := model.MongoID(EventID.Hex())
-	for i := 0; i < len(input.Members); i++ {
-		users.UpdateEventByUsername(input.Members[i], convertedId,client)
+	var usersCollection = client.Database("test").Collection("users")
+	ctx, cancel = context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	res, err := usersCollection.UpdateMany(ctx, 
+		bson.M{"_id": bson.M{"$in": input.Members}},
+		bson.M{
+			"$push": bson.M{"events": EventID},
+		},
+	)
+	if err != nil {
+    	log.Fatal(err)
 	}
+	fmt.Printf("Updated %v Documents!\n", res.ModifiedCount)
+
+	// for i := 0; i < len(input.Members); i++ {
+	// 	users.UpdateEventByUserId(input.Members[i], convertedId, client)
+	// }
 	return "success", nil
 }	
 
@@ -115,8 +127,8 @@ func AddUsersToEvent(input model.AddUsersToEvent,  client *mongo.Client) int{
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	res, err := eventsCollection.UpdateOne(ctx, 
-		bson.M{"_id": input.EventID, "members": bson.M{"$nin": input.Usernames}},
-		bson.M{"$addToSet": bson.M{"members": bson.M{"$each": input.Usernames}}},
+		bson.M{"_id": input.EventID, "members": bson.M{"$nin": input.UserIds}},
+		bson.M{"$addToSet": bson.M{"members": bson.M{"$each": input.UserIds}}},
 	)
 	if err != nil {
     	log.Fatal(err)
@@ -128,7 +140,7 @@ func AddUsersToEvent(input model.AddUsersToEvent,  client *mongo.Client) int{
 	
 	check := [...]model.MongoID {input.EventID}
 	res, err = usersCollection.UpdateMany(ctx, 
-		bson.M{"username": bson.M{"$in": input.Usernames}, "events":bson.M{"$nin": check}},
+		bson.M{"_id": bson.M{"$in": input.UserIds}, "events":bson.M{"$nin": check}},
 		bson.M{"$push": bson.M{"events": input.EventID}},
 	)
 

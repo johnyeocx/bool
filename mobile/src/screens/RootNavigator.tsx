@@ -4,6 +4,8 @@ import MyStack from "./HomeStack/Stack/HomeStack.tsx";
 import { ThemeProvider } from "../ThemeProvider";
 
 import Tabs from "./MainTabs";
+import MainStack from "./MainStack";
+import { myself } from "../apollo/cache";
 
 const DarkTheme = {
   dark: true,
@@ -21,7 +23,9 @@ const RootNavigator = () => {
   return (
     <ThemeProvider>
       <NavigationContainer theme={DarkTheme}>
-        <MyStack />
+        {/* <MyStack /> */}
+        <MainStack />
+        {/* <Tabs /> */}
       </NavigationContainer>
     </ThemeProvider>
   );

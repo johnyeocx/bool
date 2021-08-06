@@ -13,10 +13,10 @@ import {
 import { ReactNativeFile } from "apollo-upload-client";
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import RegularInput from "../../components/RegularInput";
 import { A_TOKEN } from "../../constants/constants";
 import * as ImagePicker from "expo-image-picker";
+import { myself } from "../../apollo/cache";
 
 const LOGIN = gql`
   mutation Login($input: Login!) {
@@ -61,6 +61,7 @@ const AuthScreen = ({ navigation }: { navigation: any }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [file, setFile] = useState<ReactNativeFile | null>(null);
 
+  // GRAPHQL REQUESTS
   const [login] = useMutation(LOGIN, {
     onError(err) {
       console.log(err);
@@ -116,6 +117,7 @@ const AuthScreen = ({ navigation }: { navigation: any }) => {
     setIsAuthenticated(true);
     const result = await getSelf({ variables: { input: username } });
     await AsyncStorage.setItem("user", JSON.stringify(result.data.getUser));
+    // myself(result.data.getUser);
     Keyboard.dismiss();
     navigation.navigate("Home");
   };

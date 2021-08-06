@@ -14,9 +14,8 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useMutation } from "@apollo/client";
 import { User } from "../../../../types/types";
-import { GET_EVENTS } from "../../../../gql/mutations";
 import { useDispatch } from "react-redux";
-import { GET_USER_1, ADD_USERS_TO_EVENT } from "../../../../gql/mutations";
+import { ADD_USERS_TO_EVENT } from "../../../../gql/mutations";
 import { currentMembers } from "../../../../apollo/cache";
 
 interface AddFriendProps {
@@ -39,15 +38,20 @@ function AddFriend({
   const [isAdded, setIsAdded] = useState<Array<boolean>>([]);
 
   const [addToEvent] = useMutation(ADD_USERS_TO_EVENT, {
+    update: (cache) => {
+      // const data = cache.readQuery({
+      //   query: FETCH_USERS, variables: {
+      //     userIds:
+      //   }
+      // })
+      // cache.evict({
+      //   id: cache.identify(eventId),
+      // });
+      // cache.gc();
+    },
     onError(err) {
       console.log(err);
     },
-    // update: (cache) => {
-    //   cache.evict({
-    //     id: cache.identify(eventId),
-    //   });
-    //   cache.gc();
-    // },
   });
   const dispatch = useDispatch();
   const areYouSure = () => {
@@ -65,7 +69,7 @@ function AddFriend({
     let newFriends = [];
     for (let i = 0; i < friends.length; i++) {
       if (isAdded[i]) {
-        toAdd.push(friends[i].username);
+        toAdd.push(friends[i].id);
         newFriends.push(friends[i]);
         let array = [...isEditable];
         array[i] = !array[i];
@@ -77,13 +81,13 @@ function AddFriend({
       variables: {
         input: {
           eventId: eventId,
-          usernames: toAdd,
+          userIds: toAdd,
         },
       },
     });
+
     console.log("RES: ", data.addUsersToEvent);
     if (data.addUsersToEvent != 0 && data.addUsersToEvent != -1) {
-      // dispatch({ type: "ADD_MEMBERS", payload: toAdd });
       currentMembers(currentMembers().concat(newFriends));
       setModalVisible(!modalVisible);
     }
@@ -96,7 +100,7 @@ function AddFriend({
 
   const renderEditable = async () => {
     friends.map((user: User) => {
-      if (members.includes(user.username)) {
+      if (members.includes(user.id)) {
         setIsAdded((isAdded) => [...isAdded, false]);
         setIsEditable((isEditable) => [...isEditable, false]);
       } else {

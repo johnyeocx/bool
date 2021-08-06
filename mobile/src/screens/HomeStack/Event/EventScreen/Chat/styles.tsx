@@ -15,17 +15,6 @@ export default class StyleSheetFactory {
         maxWidth: "60%",
         alignSelf: isSender ? "flex-end" : "flex-start",
         color: "white",
-        // borderRadius: 20,
-        // break
-        // display: "flex",
-        // justifyContent: "center",
-        // width: 200,
-        // height: 70,
-        // alignSelf: isSender ? "flex-end" : "flex-start",
-        // backgroundColor: isSender ? "#f98289" : "white",
-        // padding: 10,
-        // marginBottom: 20,
-        // borderRadius: 20,
       },
     });
   }
