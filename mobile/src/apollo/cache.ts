@@ -1,6 +1,5 @@
 import { InMemoryCache, ReactiveVar } from "@apollo/client";
 import { makeVar } from "@apollo/client";
-import { Image } from "react-native";
 import { User } from "../types/types";
 import { ReactNativeFile } from "apollo-upload-client";
 
@@ -19,12 +18,10 @@ export const myself = makeVar<User | null>({
 
 export const newGroup: ReactiveVar<{
   name: string;
-  description: string;
   image: ReactNativeFile;
   members: Array<string>;
 }> = makeVar({
   name: "",
-  description: "",
   image: new ReactNativeFile({
     uri: "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
     name: "default",

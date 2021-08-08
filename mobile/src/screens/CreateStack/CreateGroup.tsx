@@ -14,23 +14,18 @@ import {
 import NavHeader from "../../components/NavHeader";
 import { NavLeft } from "../../components/NavLeft";
 import { ReactNativeFile } from "apollo-upload-client";
-import * as ImagePicker from "expo-image-picker";
+// import * as ImagePicker from "expo-image-picker";
 import FriendsList from "./FriendsList";
 import { FETCH_USERS } from "../../gql/queries/userQueries";
-import { useQuery } from "@apollo/client";
+import { useQuery, useReactiveVar } from "@apollo/client";
 import { User } from "../../types/types";
 import { myself, newGroup } from "../../apollo/cache";
 import { Ionicons } from "@expo/vector-icons";
 import FastImage from "react-native-fast-image";
 import SectionHeader from "../../components/SectionHeader";
+import ImagePicker, { ImageOrVideo } from "react-native-image-crop-picker";
 
-const CustomHeaderRight = ({
-  navigation,
-  image,
-  name,
-  description,
-  members,
-}: any) => {
+const CustomHeaderRight = ({ navigation }: any) => {
   return (
     <TouchableOpacity
       style={{
@@ -40,11 +35,12 @@ const CustomHeaderRight = ({
         paddingRight: 10,
       }}
       onPress={() => {
-        navigation.navigate("Activity");
+        console.log("Creating new group: ", newGroup());
+        navigation.goBack();
       }}
     >
       <Text style={{ color: "#f46", fontFamily: "Avenir", fontSize: 16 }}>
-        Next
+        Create
       </Text>
     </TouchableOpacity>
   );
@@ -54,11 +50,10 @@ export default function CreateGroup({ navigation, route }: any) {
   // STATE
   const [image, setImage] = useState<ReactNativeFile | null>(null);
   const input = useRef(null);
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
   const [friendsModalVisible, setFriendsModalVisible] = useState(false);
   const [friends, setFriends] = useState<Array<User>>([]);
   const [chosenMembers, setChosenMembers] = useState<Array<User>>([myself()!]);
+  useReactiveVar(newGroup);
 
   // LAYOUT
   React.useLayoutEffect(() => {
@@ -71,15 +66,7 @@ export default function CreateGroup({ navigation, route }: any) {
       headerLeft: () => (
         <NavLeft route={route} navigation={navigation} source={null} />
       ),
-      headerRight: () => (
-        <CustomHeaderRight
-          navigation={navigation}
-          name={name}
-          description={description}
-          image={image}
-          members={chosenMembers}
-        />
-      ),
+      headerRight: () => <CustomHeaderRight navigation={navigation} />,
     });
   }, [navigation]);
 
@@ -94,21 +81,21 @@ export default function CreateGroup({ navigation, route }: any) {
 
   // CLICKS
   const handleImgWrapperClicked = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      aspect: [3, 3],
-      quality: 1,
-      crop: true,
-    });
-
-    if (!result.cancelled) {
+    // const pickPicture = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+    }).then((image) => {
+      console.log(image);
       const file = new ReactNativeFile({
-        uri: result.uri,
-        name: "file name",
-        type: result.type,
+        uri: image.path,
+        name: image.filename,
+        type: image.mime,
       });
       setImage(file);
       newGroup({ ...newGroup(), image: file });
-    }
+    });
   };
 
   // RENDERS
@@ -216,11 +203,13 @@ export default function CreateGroup({ navigation, route }: any) {
                 placeholder="Name"
                 placeholderTextColor="#ddd"
                 multiline
-                value={name}
-                onChange={(e) => setName(e.nativeEvent.text)}
+                value={newGroup().name}
+                onChange={(e) => {
+                  newGroup({ ...newGroup(), name: e.nativeEvent.text });
+                }}
               />
             </View>
-            <View
+            {/* <View
               style={{
                 flex: 0.5,
                 height: 50,
@@ -240,10 +229,12 @@ export default function CreateGroup({ navigation, route }: any) {
                 placeholder="Description"
                 placeholderTextColor="#ddd"
                 multiline
-                value={description}
-                onChange={(e) => setDescription(e.nativeEvent.text)}
+                value={newGroup().description}
+                onChange={(e) => {
+                  newGroup({ ...newGroup(), description: e.nativeEvent.text });
+                }}
               />
-            </View>
+            </View> */}
           </View>
         </View>
       </View>

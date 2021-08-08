@@ -5,6 +5,8 @@ import { ThemeContext } from "../../ThemeProvider";
 import { Ionicons } from "@expo/vector-icons";
 import SectionHeader from "../../components/SectionHeader";
 import { myself, newGroup } from "../../apollo/cache";
+import { useReactiveVar } from "@apollo/client";
+import { ReactNativeFile } from "apollo-upload-client";
 
 export default function GroupScreen({ navigation, route }: any) {
   React.useLayoutEffect(() => {
@@ -18,6 +20,7 @@ export default function GroupScreen({ navigation, route }: any) {
   }, [navigation]);
 
   const theme = React.useContext(ThemeContext);
+  const group = useReactiveVar(newGroup);
   return (
     <View
       style={{
@@ -39,9 +42,16 @@ export default function GroupScreen({ navigation, route }: any) {
         <Pressable
           onPress={() => {
             newGroup({
-              ...newGroup(),
+              name: "",
+              description: "",
+              image: new ReactNativeFile({
+                uri: "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
+                name: "default",
+                type: "jpeg",
+              }),
               members: [myself()!.id],
             });
+            console.log(newGroup());
             navigation.navigate("New Group");
           }}
           style={{

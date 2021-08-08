@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D979AB5FDA2E858850D9903776A30B3"
-               BuildableName = "RNImageCropPicker-QBImagePicker.bundle"
+               BuildableName = "QBImagePicker.bundle"
                BlueprintName = "RNImageCropPicker-QBImagePicker"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

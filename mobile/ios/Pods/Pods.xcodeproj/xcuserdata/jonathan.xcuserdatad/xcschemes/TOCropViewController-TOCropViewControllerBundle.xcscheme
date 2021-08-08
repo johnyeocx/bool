@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D4D3D5AD93ADCCF3DD45A88009E48D6"
-               BuildableName = "TOCropViewController-TOCropViewControllerBundle.bundle"
+               BuildableName = "TOCropViewControllerBundle.bundle"
                BlueprintName = "TOCropViewController-TOCropViewControllerBundle"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
