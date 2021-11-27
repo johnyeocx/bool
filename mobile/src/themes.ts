@@ -11,10 +11,12 @@
 // };
 
 import { Theme } from "./types/themeTypes";
+import { myColor } from "./apollo/cache";
 
 export const DarkTheme: Theme = {
   dark: true,
   colors: {
+    selected: myColor(),
     backgroundPrimary: "#222",
     textPrimary: "white",
   },

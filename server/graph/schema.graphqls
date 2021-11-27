@@ -35,6 +35,18 @@ type Event {
   private: Boolean!
 }
 
+# type Plan {
+#   # information
+#   id: MongoID!
+#   creator: String!
+#   admins: [MongoID!]!
+#   creationDate: Date!
+#   members: [MongoID!]!
+#   planDP: String!
+
+#   # data
+# }
+
 type Friendship {
   id: MongoID!
   sourceId: String!

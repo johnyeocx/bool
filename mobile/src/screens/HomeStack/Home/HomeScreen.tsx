@@ -19,6 +19,10 @@ import { fetchEvents } from "../../../redux/reducers/eventsSlice";
 import { RootState } from "../../../redux/reducers/reducer";
 import { GET_EVENTS } from "../../../gql/mutations";
 import { FlatList } from "react-native-gesture-handler";
+import FastImage from "react-native-fast-image";
+import { myColor } from "../../../apollo/cache";
+
+import { ProfileInfo } from "../components/ProfileInfo";
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const [eventIds, setEventIds] = useState<Array<string>>([]);
@@ -111,7 +115,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
           <View
             style={{
               width: 300,
-              // backgroundColor: "red",
               alignItems: "flex-start",
               justifyContent: "center",
             }}
@@ -140,49 +143,18 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
       </View>
     );
   };
+
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: "#222",
+        backgroundColor: "#111",
         alignItems: "center",
         justifyContent: "flex-start",
       }}
     >
-      {myself ? (
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "red",
-            width: Dimensions.get("window").width,
-          }}
-        >
-          <ImageBackground
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 40,
-            }}
-            source={{ uri: myself.profileImg }}
-            resizeMode="cover"
-          >
-            <View style={{ flex: 3, marginLeft: 10 }}>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  fontFamily: "Avenir",
-                }}
-              >
-                {myself ? `${myself.username}` : "NOT SIGNED IN"}
-              </Text>
-            </View>
-          </ImageBackground>
-        </View>
-      ) : null}
+      <ProfileInfo myself={myself} />
+
       <View
         style={{
           height: 30,
@@ -245,15 +217,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    // padding: 10,
   },
   userImageContainer: {
     flex: 2,
-    // backgroundColor: "green",
-    // width: 400,
     height: 100,
     borderRadius: 50,
-    // marginRight: 40,
   },
   imageContainer: {
     display: "flex",

@@ -1,0 +1,17 @@
+com/bool/MainApplication.java
+ com.bool.MainApplication
+ com.bool.MainApplication$1
+com/bool/ReactNativeFlipper.java
+ com.bool.ReactNativeFlipper
+ com.bool.ReactNativeFlipper$1
+ com.bool.ReactNativeFlipper$2
+ com.bool.ReactNativeFlipper$2$1
+com/bool/generated/BasePackageList.java
+ com.bool.generated.BasePackageList
+com/bool/BuildConfig.java
+ com.bool.BuildConfig
+com/bool/MainActivity.java
+ com.bool.MainActivity
+ com.bool.MainActivity$1
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList

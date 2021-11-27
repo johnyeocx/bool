@@ -12,7 +12,7 @@ export default function SectionHeader({ name }: Props) {
         width: Dimensions.get("window").width,
         height: 30,
         justifyContent: "center",
-        paddingLeft: 15,
+        paddingLeft: 12,
       }}
     >
       <Text

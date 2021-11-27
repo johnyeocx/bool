@@ -1,0 +1,283 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.bool"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="30" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:3:3-75
+11-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:3:20-73
+12
+13    <!--
+14    <application android:networkSecurityConfig="@xml network_security_config">
+15    </application>
+16    -->
+17    <uses-permission android:name="android.permission.INTERNET" />
+17-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:2:3-64
+17-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:2:20-62
+18    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+18-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:4:3-72
+18-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:4:20-70
+19    <uses-permission android:name="android.permission.VIBRATE" />
+19-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:5:3-63
+19-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:5:20-61
+20    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+20-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:6:3-77
+20-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:6:20-75
+21    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+21-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:7:3-77
+21-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:7:20-75
+22    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+22-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:8:3-78
+22-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:8:20-76
+23    <uses-permission android:name="android.permission.CAMERA" />
+23-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:9:3-62
+23-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:9:20-60
+24    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+24-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:10:3-68
+24-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:10:20-66
+25    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+25-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:11:3-76
+25-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:11:20-74
+26    <uses-permission android:name="android.permission.WAKE_LOCK" />
+26-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:12:3-65
+26-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:12:20-63
+27    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+27-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:13:3-79
+27-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:13:20-77
+28
+29    <uses-feature
+29-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:14:3-83
+30        android:name="android.hardware.camera"
+30-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:14:17-55
+31        android:required="false" />
+31-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:14:56-80
+32    <uses-feature
+32-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:15:3-89
+33        android:name="android.hardware.camera.front"
+33-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:15:17-61
+34        android:required="false" />
+34-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:15:62-86
+35
+36    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+36-->[com.facebook.flipper:flipper:0.54.0] /Users/jonathan/.gradle/caches/transforms-3/7ced98fae9ea2b5aa64e54aefef0d400/transformed/jetified-flipper-0.54.0/AndroidManifest.xml:16:5-76
+36-->[com.facebook.flipper:flipper:0.54.0] /Users/jonathan/.gradle/caches/transforms-3/7ced98fae9ea2b5aa64e54aefef0d400/transformed/jetified-flipper-0.54.0/AndroidManifest.xml:16:22-73
+37
+38    <queries>
+38-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-14:15
+39        <intent>
+39-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-13:18
+40            <action android:name="android.media.action.IMAGE_CAPTURE" />
+40-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-73
+40-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:21-70
+41        </intent>
+42        <intent>
+42-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-27:18
+43
+44            <!-- Required for picking images from the camera if targeting API 30 -->
+45            <action android:name="android.media.action.ACTION_VIDEO_CAPTURE" />
+45-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:13-80
+45-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:21-77
+46        </intent>
+47    </queries>
+48
+49    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+49-->[com.android.installreferrer:installreferrer:1.0] /Users/jonathan/.gradle/caches/transforms-3/cd97919b7601413c6c8450c9584e6e99/transformed/jetified-installreferrer-1.0/AndroidManifest.xml:9:5-110
+49-->[com.android.installreferrer:installreferrer:1.0] /Users/jonathan/.gradle/caches/transforms-3/cd97919b7601413c6c8450c9584e6e99/transformed/jetified-installreferrer-1.0/AndroidManifest.xml:9:22-107
+50
+51    <application
+51-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:16:3-35:17
+52        android:name="com.bool.MainApplication"
+52-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:16:16-47
+53        android:allowBackup="true"
+53-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:16:162-188
+54        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+54-->[androidx.core:core:1.3.0] /Users/jonathan/.gradle/caches/transforms-3/fe3cf0882eb40046447bd9893532f7c5/transformed/core-1.3.0/AndroidManifest.xml:24:18-86
+55        android:debuggable="true"
+56        android:icon="@mipmap/ic_launcher"
+56-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:16:81-115
+57        android:label="@string/app_name"
+57-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:16:48-80
+58        android:roundIcon="@mipmap/ic_launcher_round"
+58-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:16:116-161
+59        android:theme="@style/AppTheme"
+59-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:16:189-220
+60        android:usesCleartextTraffic="true" >
+60-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/debug/AndroidManifest.xml:6:18-53
+61        <meta-data
+61-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:17:5-93
+62            android:name="expo.modules.updates.EXPO_SDK_VERSION"
+62-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:17:16-68
+63            android:value="41.0.0" />
+63-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:17:69-91
+64        <meta-data
+64-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:18:5-82
+65            android:name="expo.modules.updates.ENABLED"
+65-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:18:16-59
+66            android:value="true" />
+66-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:18:60-80
+67        <meta-data
+67-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:19:5-105
+68            android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH"
+68-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:19:16-80
+69            android:value="ALWAYS" />
+69-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:19:81-103
+70        <meta-data
+70-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:20:5-99
+71            android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS"
+71-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:20:16-79
+72            android:value="0" />
+72-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:20:80-97
+73
+74        <activity
+74-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:5-32:16
+75            android:name="com.bool.MainActivity"
+75-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:15-43
+76            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+76-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:77-154
+77            android:label="@string/app_name"
+77-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:44-76
+78            android:launchMode="singleTask"
+78-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:155-186
+79            android:screenOrientation="portrait"
+79-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:276-312
+80            android:theme="@style/Theme.App.SplashScreen"
+80-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:230-275
+81            android:windowSoftInputMode="adjustResize" >
+81-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:21:187-229
+82            <intent-filter>
+82-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:22:7-25:23
+83                <action android:name="android.intent.action.MAIN" />
+83-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:23:9-60
+83-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:23:17-58
+84
+85                <category android:name="android.intent.category.LAUNCHER" />
+85-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:24:9-68
+85-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:24:19-66
+86            </intent-filter>
+87            <intent-filter>
+87-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:26:7-31:23
+88                <action android:name="android.intent.action.VIEW" />
+88-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:27:9-60
+88-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:27:17-58
+89
+90                <category android:name="android.intent.category.DEFAULT" />
+90-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:28:9-67
+90-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:28:19-65
+91                <category android:name="android.intent.category.BROWSABLE" />
+91-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:29:9-69
+91-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:29:19-67
+92
+93                <data android:scheme="com.bool" />
+93-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:30:9-42
+93-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:30:15-40
+94            </intent-filter>
+95        </activity>
+96        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+96-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:33:5-81
+96-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:33:15-79
+97        <activity
+97-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:34:5-124
+98            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+98-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:34:15-78
+99            android:theme="@style/Base.Theme.AppCompat" />
+99-->/Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/android/app/src/main/AndroidManifest.xml:34:79-122
+100
+101        <meta-data
+101-->[:unimodules-react-native-adapter] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-14:91
+102            android:name="org.unimodules.core.AppLoader#react-native-headless"
+102-->[:unimodules-react-native-adapter] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-79
+103            android:value="org.unimodules.adapters.react.apploader.RNHeadlessAppLoader" />
+103-->[:unimodules-react-native-adapter] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-88
+104
+105        <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+105-->[:react-native-firebase] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:9-20:19
+105-->[:react-native-firebase] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:18-89
+106            <meta-data
+106-->[:react-native-firebase] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-19:85
+107                android:name="com.google.firebase.components:io.invertase.firebase.ReactNativeFirebaseAppRegistrar"
+107-->[:react-native-firebase] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-116
+108                android:value="com.google.firebase.components.ComponentRegistrar" />
+108-->[:react-native-firebase] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-82
+109        </service>
+110
+111        <provider
+111-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-27:20
+112            android:name="androidx.core.content.FileProvider"
+112-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-62
+113            android:authorities="com.bool.provider"
+113-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-60
+114            android:exported="false"
+114-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-37
+115            android:grantUriPermissions="true" >
+115-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-47
+116            <meta-data
+116-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:58
+117                android:name="android.support.FILE_PROVIDER_PATHS"
+117-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
+118                android:resource="@xml/provider_paths" />
+118-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-55
+119        </provider>
+120
+121        <activity
+121-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:9-31:72
+122            android:name="com.yalantis.ucrop.UCropActivity"
+122-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:13-60
+123            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+123-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:13-69
+124
+125        <provider
+125-->[:expo-file-system] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:9-26:20
+126            android:name="expo.modules.filesystem.FileSystemFileProvider"
+126-->[:expo-file-system] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-74
+127            android:authorities="com.bool.FileSystemFileProvider"
+127-->[:expo-file-system] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-74
+128            android:exported="false"
+128-->[:expo-file-system] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-37
+129            android:grantUriPermissions="true" >
+129-->[:expo-file-system] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-47
+130            <meta-data
+130-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:58
+131                android:name="android.support.FILE_PROVIDER_PATHS"
+131-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
+132                android:resource="@xml/file_system_provider_paths" />
+132-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-55
+133        </provider> <!-- https://developer.android.com/guide/topics/manifest/provider-element.html -->
+134        <provider
+134-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:9-43:20
+135            android:name="expo.modules.imagepicker.ImagePickerFileProvider"
+135-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:13-76
+136            android:authorities="com.bool.ImagePickerFileProvider"
+136-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:13-75
+137            android:exported="false"
+137-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:13-37
+138            android:grantUriPermissions="true" >
+138-->[:expo-image-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-47
+139            <meta-data
+139-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:58
+140                android:name="android.support.FILE_PROVIDER_PATHS"
+140-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
+141                android:resource="@xml/image_picker_provider_paths" />
+141-->[:react-native-image-crop-picker] /Users/jonathan/go/src/github.com/johnyeocx/bool-m1/mobile/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-55
+142        </provider>
+143
+144        <meta-data
+144-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] /Users/jonathan/.gradle/caches/transforms-3/063bdf63fbdcebaad7ee6fb3b293db33/transformed/jetified-okhttp3-integration-4.11.0/AndroidManifest.xml:11:9-13:43
+145            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+145-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] /Users/jonathan/.gradle/caches/transforms-3/063bdf63fbdcebaad7ee6fb3b293db33/transformed/jetified-okhttp3-integration-4.11.0/AndroidManifest.xml:12:13-84
+146            android:value="GlideModule" />
+146-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] /Users/jonathan/.gradle/caches/transforms-3/063bdf63fbdcebaad7ee6fb3b293db33/transformed/jetified-okhttp3-integration-4.11.0/AndroidManifest.xml:13:13-40
+147
+148        <service
+148-->[androidx.room:room-runtime:2.1.0] /Users/jonathan/.gradle/caches/transforms-3/3b5db4b3b22ae452a34a6490900f58b2/transformed/room-runtime-2.1.0/AndroidManifest.xml:25:9-27:40
+149            android:name="androidx.room.MultiInstanceInvalidationService"
+149-->[androidx.room:room-runtime:2.1.0] /Users/jonathan/.gradle/caches/transforms-3/3b5db4b3b22ae452a34a6490900f58b2/transformed/room-runtime-2.1.0/AndroidManifest.xml:26:13-74
+150            android:exported="false" />
+150-->[androidx.room:room-runtime:2.1.0] /Users/jonathan/.gradle/caches/transforms-3/3b5db4b3b22ae452a34a6490900f58b2/transformed/room-runtime-2.1.0/AndroidManifest.xml:27:13-37
+151    </application>
+152
+153</manifest>

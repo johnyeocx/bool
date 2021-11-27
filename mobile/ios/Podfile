@@ -18,4 +18,11 @@ target 'BoolMobile' do
   #     flipper_post_install(installer)
   #   end
   # end
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Messaging'
+
+  pod 'react-native-pager-view', :path => '../node_modules/react-native-pager-view'
+
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
 end

@@ -6,13 +6,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 // import EventTabs from "../Event/Tabs/EventTabs";
 import { ThemeContext } from "../ThemeProvider";
 import NavHeader from "../components/NavHeader";
-import ActivityScreen from "./CreateStack/ActivityScreen";
+import ActivityScreen from "./CreateStack/components/ActivityScreen";
 import Tabs from "./MainTabs";
 
 const Stack = createStackNavigator();
 
 function MainStack() {
-  const theme = React.useContext(ThemeContext);
+  // const theme = React.useContext(ThemeContext);
   return (
     <Stack.Navigator
       screenOptions={{

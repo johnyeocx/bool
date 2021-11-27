@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BoolMobile.iml" filepath="$PROJECT_DIR$/.idea/modules/BoolMobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BoolMobile.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BoolMobile.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-658404194/BoolMobile.expo-application.iml" filepath="$PROJECT_DIR$/.idea/modules/-658404194/BoolMobile.expo-application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-563753699/BoolMobile.expo-constants.iml" filepath="$PROJECT_DIR$/.idea/modules/-563753699/BoolMobile.expo-constants.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/382009452/BoolMobile.expo-error-recovery.iml" filepath="$PROJECT_DIR$/.idea/modules/382009452/BoolMobile.expo-error-recovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1188349202/BoolMobile.expo-file-system.iml" filepath="$PROJECT_DIR$/.idea/modules/-1188349202/BoolMobile.expo-file-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-988427135/BoolMobile.expo-font.iml" filepath="$PROJECT_DIR$/.idea/modules/-988427135/BoolMobile.expo-font.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/933149943/BoolMobile.expo-image-loader.iml" filepath="$PROJECT_DIR$/.idea/modules/933149943/BoolMobile.expo-image-loader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1235741298/BoolMobile.expo-image-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/1235741298/BoolMobile.expo-image-picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1058311663/BoolMobile.expo-keep-awake.iml" filepath="$PROJECT_DIR$/.idea/modules/1058311663/BoolMobile.expo-keep-awake.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-214431790/BoolMobile.expo-permissions.iml" filepath="$PROJECT_DIR$/.idea/modules/-214431790/BoolMobile.expo-permissions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-500234947/BoolMobile.expo-secure-store.iml" filepath="$PROJECT_DIR$/.idea/modules/-500234947/BoolMobile.expo-secure-store.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1893314656/BoolMobile.expo-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/1893314656/BoolMobile.expo-splash-screen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/801484988/BoolMobile.expo-structured-headers.iml" filepath="$PROJECT_DIR$/.idea/modules/801484988/BoolMobile.expo-structured-headers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/393311512/BoolMobile.expo-updates.iml" filepath="$PROJECT_DIR$/.idea/modules/393311512/BoolMobile.expo-updates.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-407292972/BoolMobile.react-native-async-storage_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-407292972/BoolMobile.react-native-async-storage_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-515713648/BoolMobile.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/-515713648/BoolMobile.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1346238350/BoolMobile.react-native-date-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/1346238350/BoolMobile.react-native-date-picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/844239945/BoolMobile.react-native-fast-image.iml" filepath="$PROJECT_DIR$/.idea/modules/844239945/BoolMobile.react-native-fast-image.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1635056742/BoolMobile.react-native-firebase.iml" filepath="$PROJECT_DIR$/.idea/modules/1635056742/BoolMobile.react-native-firebase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1168961209/BoolMobile.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/-1168961209/BoolMobile.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-469865414/BoolMobile.react-native-image-crop-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-469865414/BoolMobile.react-native-image-crop-picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1946578190/BoolMobile.react-native-pager-view.iml" filepath="$PROJECT_DIR$/.idea/modules/1946578190/BoolMobile.react-native-pager-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1981091984/BoolMobile.react-native-placesearch.iml" filepath="$PROJECT_DIR$/.idea/modules/-1981091984/BoolMobile.react-native-placesearch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1841324939/BoolMobile.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-1841324939/BoolMobile.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1733889040/BoolMobile.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/-1733889040/BoolMobile.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-967475192/BoolMobile.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/-967475192/BoolMobile.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1589451793/BoolMobile.react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/-1589451793/BoolMobile.react-native-vector-icons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-321325076/BoolMobile.unimodules-app-loader.iml" filepath="$PROJECT_DIR$/.idea/modules/-321325076/BoolMobile.unimodules-app-loader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/441901200/BoolMobile.unimodules-barcode-scanner-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/441901200/BoolMobile.unimodules-barcode-scanner-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/322852734/BoolMobile.unimodules-camera-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/322852734/BoolMobile.unimodules-camera-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-198406418/BoolMobile.unimodules-constants-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-198406418/BoolMobile.unimodules-constants-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2070929024/BoolMobile.unimodules-core.iml" filepath="$PROJECT_DIR$/.idea/modules/2070929024/BoolMobile.unimodules-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/894348693/BoolMobile.unimodules-face-detector-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/894348693/BoolMobile.unimodules-face-detector-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1075029567/BoolMobile.unimodules-file-system-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/1075029567/BoolMobile.unimodules-file-system-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1270863512/BoolMobile.unimodules-font-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1270863512/BoolMobile.unimodules-font-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1981469534/BoolMobile.unimodules-image-loader-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/1981469534/BoolMobile.unimodules-image-loader-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/893429283/BoolMobile.unimodules-permissions-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/893429283/BoolMobile.unimodules-permissions-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2129205896/BoolMobile.unimodules-react-native-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/2129205896/BoolMobile.unimodules-react-native-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/564102104/BoolMobile.unimodules-sensors-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/564102104/BoolMobile.unimodules-sensors-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/231700990/BoolMobile.unimodules-task-manager-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/231700990/BoolMobile.unimodules-task-manager-interface.iml" />
+    </modules>
+  </component>
+</project>

@@ -47,11 +47,16 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your camera</string>
+	<string>$(PRODUCT_NAME) requires to access camera for uploading photos to your profile or posts</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
+	<string>$(PRODUCT_NAME) requires to access Audio recording to record and uplod videos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your photos</string>
+	<string>$(PRODUCT_NAME) would like to upload photos from your photo gallery</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -69,11 +74,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to upload photos from your photo gallery</string>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires to access camera for uploading photos to your profile or posts</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires to access Audio recording to record and uplod videos</string>
 </dict>
 </plist>

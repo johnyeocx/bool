@@ -3,7 +3,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "./HomeStack/Home/HomeScreen";
-import CreateEventScreen from "./CreateStack/ActivityScreen";
+import CreateEventScreen from "./CreateStack/components/ActivityScreen";
 import AuthScreen from "./AuthStack/AuthScreen";
 import SearchScreen from "./SearchStack/SearchScreen";
 import { View, Text } from "react-native";
@@ -12,7 +12,7 @@ import { RouteProp } from "@react-navigation/core";
 import MyStack from "./HomeStack/Stack/HomeStack.tsx";
 import ChatScreen from "./ChatStack/ChatScreen";
 import CreateStack from "./CreateStack/Stack/CreateStack";
-import GroupScreen from "./CreateStack/GroupScreen";
+import GroupScreen from "./CreateStack/CreateScreen";
 import HomeStack from "./HomeStack/Stack/HomeStack.tsx";
 
 const screenOptions = (

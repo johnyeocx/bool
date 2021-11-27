@@ -18,10 +18,12 @@ export const myself = makeVar<User | null>({
 
 export const newGroup: ReactiveVar<{
   name: string;
+  description: string;
   image: ReactNativeFile;
   members: Array<string>;
 }> = makeVar({
   name: "",
+  description: "",
   image: new ReactNativeFile({
     uri: "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
     name: "default",
@@ -30,14 +32,26 @@ export const newGroup: ReactiveVar<{
   members: [""],
 });
 
+export const chosenMembers: ReactiveVar<Array<User | null>> = makeVar([
+  myself(),
+]);
+
 export const currentCreation = makeVar({
   groupId: "",
 });
+
+// THEME COLOR
+export const myColor: any = makeVar("#ffcc00");
 
 export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        myColor: {
+          read() {
+            return myColor();
+          },
+        },
         currentMembers: {
           read() {
             return currentMembers();
@@ -53,10 +67,13 @@ export const cache = new InMemoryCache({
             return myself();
           },
         },
+        // CREATE EVENT
+        chosenMembers: {
+          read() {
+            return chosenMembers();
+          },
+        },
       },
     },
-    // User: {
-    //   keyFields: ["username"],
-    // },
   },
 });
