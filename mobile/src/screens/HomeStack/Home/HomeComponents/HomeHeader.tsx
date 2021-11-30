@@ -8,9 +8,9 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // INTERNAL
-import { myColor } from "../../../apollo/cache";
+import { myColor } from "../../../../apollo/cache";
 
-export const HomeHeader = () => {
+export const HomeHeader = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.overallWrapper}>
       {/* LEFT BUTTON (MENU) */}
@@ -27,7 +27,7 @@ export const HomeHeader = () => {
       {/* RIGHT BUTTON (EDIT PAGE) */}
       <TouchableOpacity
         onPress={() => {
-          console.log("hello world");
+          navigation.navigate("UserSettings");
         }}
       >
         <View style={styles.iconWrapper}>

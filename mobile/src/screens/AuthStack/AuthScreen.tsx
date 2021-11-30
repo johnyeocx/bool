@@ -117,7 +117,7 @@ const AuthScreen = ({ navigation }: { navigation: any }) => {
     setIsAuthenticated(true);
     const result = await getSelf({ variables: { input: username } });
     await AsyncStorage.setItem("user", JSON.stringify(result.data.getUser));
-    // myself(result.data.getUser);
+    myself(result.data.getUser);
     Keyboard.dismiss();
     navigation.navigate("Home");
   };

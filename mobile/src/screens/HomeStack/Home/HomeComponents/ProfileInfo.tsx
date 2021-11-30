@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import FastImage from "react-native-fast-image";
 
 // INTERNAL
-import { myColor } from "../../../apollo/cache";
+import { myColor } from "../../../../apollo/cache";
 
 export const ProfileInfo = ({ myself }: any) => {
   return (
@@ -16,16 +16,14 @@ export const ProfileInfo = ({ myself }: any) => {
       }}
     >
       {/* LEFT WRAPPER */}
-      <View style={styles.overallWrapper}>
+      <View style={styles.leftWrapper}>
         <View
           style={{
-            paddingLeft: 45,
+            paddingLeft: 47.5,
           }}
         >
           {/* USERNAME TEXT */}
-          <Text
-            style={styles.usernameText}
-          >{`${myself.username.toUpperCase()}`}</Text>
+          <Text style={styles.usernameText}>{`${myself.username}`}</Text>
           {/* BIO TEXT */}
           <Text style={styles.bioText} numberOfLines={2}>
             songs from the bedroom of mediocrity
@@ -44,11 +42,23 @@ export const ProfileInfo = ({ myself }: any) => {
             </View>
             {/* TEXT WRAPPER */}
             <View>
-              <Text style={styles.boolText}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: `${myColor()}`,
+                  fontWeight: "bold",
+                }}
+              >
                 {"  "}
                 Bools
               </Text>
-              <Text style={styles.boolText}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: `${myColor()}`,
+                  fontWeight: "bold",
+                }}
+              >
                 {"  "}
                 Friends
               </Text>
@@ -59,7 +69,16 @@ export const ProfileInfo = ({ myself }: any) => {
 
       {/* RIGHT WRAPPER */}
       <View style={styles.rightWrapper}>
-        <View style={styles.imageWrapper}>
+        <View
+          style={{
+            width: 110,
+            height: 110,
+            borderRadius: 55,
+            borderStyle: "solid",
+            borderWidth: 3,
+            borderColor: `${myColor()}`,
+          }}
+        >
           <FastImage
             style={{
               flex: 1,
@@ -75,16 +94,16 @@ export const ProfileInfo = ({ myself }: any) => {
 };
 
 const styles = StyleSheet.create({
-  overallWrapper: {
+  leftWrapper: {
     flex: 1,
     paddingBottom: 5,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   usernameText: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
+    fontWeight: "800",
     marginBottom: 5,
     marginTop: 5,
   },
@@ -97,23 +116,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 15,
   },
-  boolText: {
-    fontSize: 15,
-    color: `${myColor()}`,
-    fontWeight: "bold",
-  },
   rightWrapper: {
     flex: 1,
     height: 150,
     justifyContent: "center",
     alignItems: "center",
-  },
-  imageWrapper: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: `${myColor()}`,
   },
 });

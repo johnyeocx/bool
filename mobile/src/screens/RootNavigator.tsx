@@ -1,11 +1,8 @@
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import React from "react";
-import MyStack from "./HomeStack/Stack/HomeStack.tsx";
 import { ThemeProvider } from "../ThemeProvider";
 
-import Tabs from "./MainTabs";
 import MainStack from "./MainStack";
-import { myself } from "../apollo/cache";
 
 const DarkTheme = {
   dark: true,

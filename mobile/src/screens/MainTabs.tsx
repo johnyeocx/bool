@@ -7,13 +7,13 @@ import CreateEventScreen from "./CreateStack/components/ActivityScreen";
 import AuthScreen from "./AuthStack/AuthScreen";
 import SearchScreen from "./SearchStack/SearchScreen";
 import { View, Text } from "react-native";
-import { Ionicons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/core";
-import MyStack from "./HomeStack/Stack/HomeStack.tsx";
 import ChatScreen from "./ChatStack/ChatScreen";
 import CreateStack from "./CreateStack/Stack/CreateStack";
-import GroupScreen from "./CreateStack/CreateScreen";
 import HomeStack from "./HomeStack/Stack/HomeStack.tsx";
+import { myColor, myself } from "../apollo/cache";
+import FastImage from "react-native-fast-image";
 
 const screenOptions = (
   route: RouteProp<Record<string, object | undefined>, string>,
@@ -21,7 +21,32 @@ const screenOptions = (
 ) => {
   switch (route.name) {
     case "Home":
-      return <Ionicons name="ios-home" size={20} color={color} />;
+      return (
+        <View
+          style={{
+            width: 25,
+            height: 25,
+            backgroundColor: "red",
+            borderStyle: "solid",
+            borderWidth: 2,
+            borderColor: color,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 12.5,
+          }}
+        >
+          <FastImage
+            source={{ uri: myself()?.profileImg }}
+            style={{
+              width: 23,
+              height: 23,
+              borderRadius: 12.5,
+            }}
+          ></FastImage>
+        </View>
+      );
+
+    // <Ionicons name="ios-home" size={20} color={color} />;
     case "Chat":
       return <Ionicons name="chatbubble" size={20} color={color} />;
     case "Create":
@@ -43,17 +68,19 @@ const Tabs = () => {
       })}
       tabBarOptions={{
         style: {
-          backgroundColor: "#222",
-          height: 70,
+          backgroundColor: "#111",
+          height: 74,
         },
+        activeTintColor: myColor(),
+        inactiveTintColor: "lightgray",
         showLabel: false,
       }}
     >
-      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Auth" component={AuthScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Create" component={CreateStack} />
-      <Tab.Screen name="Auth" component={AuthScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Home" component={HomeStack} />
     </Tab.Navigator>
   );
 };

@@ -1,32 +1,31 @@
+// EXTERNAL
 import * as React from "react";
 import {
   View,
   Text,
-  Image,
-  TouchableOpacity,
   StyleSheet,
-  ImageBackground,
   Dimensions,
-  Pressable,
+  useWindowDimensions,
 } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { Event, User } from "../../../types/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { SimpleLineIcons } from "@expo/vector-icons";
+
+// INTERNAL
+import { Event, User } from "../../../types/types";
 import { fetchEvents } from "../../../redux/reducers/eventsSlice";
 import { RootState } from "../../../redux/reducers/reducer";
 import { GET_EVENTS } from "../../../gql/mutations";
-import { FlatList } from "react-native-gesture-handler";
-import FastImage from "react-native-fast-image";
-import { myColor } from "../../../apollo/cache";
-
-import { ProfileInfo } from "../components/ProfileInfo";
+import { ProfileInfo } from "./HomeComponents/ProfileInfo";
+import CreateEvent from "../../CreateStack/Tabs/CreateEvent";
+import EventDisplay from "./HomeComponents/EventDisplay";
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const [eventIds, setEventIds] = useState<Array<string>>([]);
-  const [isChat, setIsChat] = useState(false);
   const [myself, setMyself] = useState<User>();
   const [getEvents] = useMutation(GET_EVENTS, {
     onError: (err) => console.log(err),
@@ -35,33 +34,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   const isVisible = useIsFocused();
   const dispatch = useDispatch();
   const events = useSelector((state: RootState) => state.events);
-
-  const renderedEvents = events.map((event: Event) => {
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          dispatch({ type: "SET_CURRENT_EVENT", payload: event });
-          navigation.navigate("Event", {
-            event: event,
-            myself: myself,
-            name: event.name,
-          });
-        }}
-        style={styles.imageContainer}
-        key={event.id}
-      >
-        <Image style={styles.eventImage} source={{ uri: event.eventDP }} />
-      </TouchableOpacity>
-    );
-  });
-
-  const renderPlans = () => {
-    return (
-      <View style={{ flex: 1 }}>
-        <Text>{`Chat `}</Text>
-      </View>
-    );
-  };
 
   useEffect(() => {
     getSelf();
@@ -82,68 +54,60 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     }
   };
 
-  const renderItem = ({ item, index }: any) => {
-    return (
-      <View>
-        <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-start",
-            height: 100,
-          }}
-          onPress={() => {
-            dispatch({ type: "SET_CURRENT_EVENT", payload: item });
-            navigation.navigate("Event", {
-              event: item,
-              myself: myself,
-              name: item.name,
-            });
-          }}
-        >
-          <View style={{ width: 100, alignItems: "center" }}>
-            <Image
-              style={{
-                width: 70,
-                height: 70,
-                borderRadius: 20,
-                marginRight: 10,
-              }}
-              source={{ uri: item.eventDP }}
-            />
-          </View>
-          <View
-            style={{
-              width: 300,
-              alignItems: "flex-start",
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{ fontFamily: "Futura", fontSize: 20, color: "white" }}
-            >
-              {item.name}
-            </Text>
+  // TAB BAR WORKINGS
+  const layout = useWindowDimensions();
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: "first", title: "First" },
+    { key: "second", title: "Second" },
+  ]);
+  const [render, setRender] = useState(false);
 
-            <Text
-              style={{ fontFamily: "Futura", fontSize: 15, color: "white" }}
-            >
-              {item.date}
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <View
-          style={{
-            width: Dimensions.get("window").width - 10,
-            height: 3,
-            alignSelf: "flex-end",
-            backgroundColor: "#333",
-          }}
+  const renderTabBar = (props: any) => (
+    <TabBar
+      {...props}
+      indicatorStyle={{ backgroundColor: "white" }}
+      style={{ backgroundColor: "#222" }}
+      renderIcon={({ route, focused, color }) => (
+        <SimpleLineIcons
+          name={route.key == "first" ? "notebook" : "event"}
+          size={18}
+          color={color}
         />
-      </View>
-    );
-  };
+      )}
+      renderLabel={({ route, focused, color }) => null}
+      // renderLabel={({ route, focused, color }) => (
+      //   <Text
+      //     style={
+      //       focused
+      //         ? {
+      //             color: "white",
+      //             fontWeight: "bold",
+      //             fontSize: 14,
+      //           }
+      //         : {
+      //             color: "grey",
+      //             fontWeight: "bold",
+      //             fontSize: 14,
+      //           }
+      //     }
+      //   >
+      //     {route.key == "first" ? "Events" : "Plans"}
+      //   </Text>
+      // )}
+    />
+  );
 
+  const eventScreen = () => (
+    <EventDisplay navigation={navigation} myself={myself} events={events} />
+  );
+
+  const renderScene = SceneMap({
+    first: eventScreen,
+    second: CreateEvent,
+  });
+
+  // MAIN
   return (
     <View
       style={{
@@ -153,56 +117,25 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         justifyContent: "flex-start",
       }}
     >
-      <ProfileInfo myself={myself} />
-
+      {myself ? <ProfileInfo myself={myself} /> : null}
       <View
         style={{
-          height: 30,
-          backgroundColor: "#333",
+          flex: 1,
+          height: 300,
           width: Dimensions.get("window").width,
-          paddingHorizontal: 20,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
-        <Pressable onPress={() => setIsChat(!isChat)}>
-          <Text
-            style={{
-              fontFamily: "Futura",
-              color: "white",
-              fontSize: 15,
-              fontWeight: "bold",
-            }}
-          >
-            Events
-          </Text>
-        </Pressable>
-        <Pressable onPress={() => setIsChat(!isChat)}>
-          <Text
-            style={{
-              fontFamily: "Futura",
-              color: "white",
-              fontSize: 15,
-              fontWeight: "bold",
-            }}
-          >
-            Plans
-          </Text>
-        </Pressable>
-      </View>
-      <View style={styles.eventsWrapper}>
-        <FlatList
-          contentContainerStyle={{
-            justifyContent: "flex-end",
+        <TabView
+          style={{
+            backgroundColor: "transparent",
+            width: Dimensions.get("screen").width,
           }}
-          data={events ? events : null}
-          renderItem={isChat ? renderPlans : renderItem}
-          keyExtractor={(item, index) => {
-            return index.toString();
-          }}
-          bounces={false}
-          showsVerticalScrollIndicator={false}
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          renderTabBar={renderTabBar}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          transitionStyle="curl"
         />
       </View>
     </View>
