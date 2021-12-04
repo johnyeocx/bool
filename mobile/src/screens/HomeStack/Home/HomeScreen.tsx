@@ -23,10 +23,11 @@ import { GET_EVENTS } from "../../../gql/mutations";
 import { ProfileInfo } from "./HomeComponents/ProfileInfo";
 import CreateEvent from "../../CreateStack/Tabs/CreateEvent";
 import EventDisplay from "./HomeComponents/EventDisplay";
+import { myself } from "../../../apollo/cache";
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const [eventIds, setEventIds] = useState<Array<string>>([]);
-  const [myself, setMyself] = useState<User>();
+  const [myself2, setMyself] = useState<User>();
   const [getEvents] = useMutation(GET_EVENTS, {
     onError: (err) => console.log(err),
   });
@@ -37,20 +38,21 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     getSelf();
-    const fetchEventsThunk = fetchEvents(myself, getEvents);
+    const fetchEventsThunk = fetchEvents(myself2, getEvents);
     dispatch(fetchEventsThunk);
   }, [isVisible]);
 
   useEffect(() => {
-    if (myself) {
-      setEventIds(myself.events);
+    if (myself2) {
+      setEventIds(myself2.events);
     }
-  }, [myself]);
+  }, [myself2]);
 
   const getSelf = async () => {
     const result = await AsyncStorage.getItem("user");
     if (result) {
       setMyself(JSON.parse(result));
+      myself(JSON.parse(result));
     }
   };
 
@@ -117,7 +119,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         justifyContent: "flex-start",
       }}
     >
-      {myself ? <ProfileInfo myself={myself} /> : null}
+      {myself2 ? <ProfileInfo myself={myself2} /> : null}
       <View
         style={{
           flex: 1,
@@ -141,40 +143,5 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  eventsWrapper: {
-    flex: 2.5,
-    height: 600,
-    width: 400,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  userImageContainer: {
-    flex: 2,
-    height: 100,
-    borderRadius: 50,
-  },
-  imageContainer: {
-    display: "flex",
-    width: 100,
-    height: 100,
-    backgroundColor: "red",
-    marginBottom: 20,
-    borderRadius: 20,
-  },
-  eventImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-  },
-  userImage: {
-    width: 42,
-    height: 42,
-    borderRadius: 20,
-    marginRight: 10,
-  },
-});
 
 export default HomeScreen;

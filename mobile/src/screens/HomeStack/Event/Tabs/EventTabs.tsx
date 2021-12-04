@@ -112,14 +112,7 @@ const EventTabs = ({ navigation, route }: EventTabsProps) => {
           />
         )}
       </Tab.Screen>
-      <Tab.Screen name="Chat">
-        {() => (
-          <Chat
-            username={route.params.myself.username}
-            event={route.params.event}
-          />
-        )}
-      </Tab.Screen>
+      <Tab.Screen name="Chat">{() => <Chat />}</Tab.Screen>
     </Tab.Navigator>
   );
 };

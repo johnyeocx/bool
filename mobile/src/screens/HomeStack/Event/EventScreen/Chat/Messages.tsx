@@ -3,6 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { Item } from "react-native-paper/lib/typescript/components/List/List";
+import { myColor } from "../../../../../apollo/cache";
 import StyleSheetFactory from "./styles";
 
 interface MessagesProp {
@@ -23,7 +24,18 @@ function Messages({ messages, username }: MessagesProp) {
     }
 
     return (
-      <View style={styles.imageContainer}>
+      <View
+        style={{
+          borderStyle: "solid",
+          borderWidth: 2,
+          borderColor: item.sender == username ? `${myColor()}` : "#7122fa",
+          padding: 10,
+          borderRadius: 25,
+          marginTop: 5,
+          maxWidth: "60%",
+          alignSelf: item.sender == username ? "flex-end" : "flex-start",
+        }}
+      >
         <Text style={{ fontWeight: "bold", color: "white" }}>
           {item.sender}:
         </Text>
@@ -50,17 +62,4 @@ function Messages({ messages, username }: MessagesProp) {
   );
 }
 
-// const styles = (isSender: boolean, theme: Theme) =>
-//   StyleSheet.create({
-//     imageContainer: {
-//       borderStyle: "solid",
-//       borderWidth: 2,
-//       borderColor: isSender ? "#ff2281" : "#7122fa",
-//       padding: 10,
-//       borderRadius: 25,
-//       marginTop: 5,
-//       maxWidth: "60%",
-//       alignSelf: isSender ? "flex-end" : "flex-start",
-//     },
-//   });
 export default Messages;

@@ -16,8 +16,6 @@ interface itemProps {
 }
 
 function Gallery({ event, username }: EventProps) {
-  // const [username, setUsername] = useState("");
-
   const renderItem = ({ item }: itemProps) => {
     return (
       <View style={styles.imageContainer}>

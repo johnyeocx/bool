@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import FastImage from "react-native-fast-image";
 
 const formatData = (events: any, numColumns: any) => {
   const numberOfFullRows = Math.floor(events.length / numColumns);
@@ -25,10 +27,11 @@ const formatData = (events: any, numColumns: any) => {
 };
 
 const formatDate = (eventDateString: string) => {
-  return moment(eventDateString).format("DD MMMM 'YY");
+  return moment(eventDateString).format("DD MMM YYYY");
 };
 
 const EventDisplay = ({ navigation, myself, events }: any) => {
+  const dispatch = useDispatch();
   const renderItem = ({ item }: any) => {
     if (item.empty === true) {
       return <View style={styles.itemInvisible}></View>;
@@ -36,19 +39,22 @@ const EventDisplay = ({ navigation, myself, events }: any) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          console.log("TO EVENT PAGE", item);
-          // navigation.navigate("Event");
-          // dispatchEvent("SET_EVENT")
+          // console.log("TO EVENT PAGE", item);
+          navigation.navigate("Event");
+          dispatch({
+            type: "SET_CURRENT_EVENT",
+            payload: item,
+          });
         }}
       >
-        <ImageBackground
+        <FastImage
           source={{ uri: item.eventDP }}
           style={styles.imageBackground}
-          imageStyle={{ borderRadius: 15 }}
+          // imageStyle={{ borderRadius: 15 }}
         >
           <Text style={styles.nameText}>{item.name}</Text>
           <Text style={styles.dateText}>{formatDate(item.date)}</Text>
-        </ImageBackground>
+        </FastImage>
       </TouchableOpacity>
     );
   };
@@ -89,6 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     paddingBottom: 10,
     paddingLeft: 5,
+    borderRadius: 15,
   },
   nameText: {
     fontWeight: "bold",

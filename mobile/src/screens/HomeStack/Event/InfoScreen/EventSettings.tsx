@@ -30,7 +30,7 @@ import {
 import { uploadImage } from "../../../../helpers/photos";
 import NavHeader from "../../../../components/NavHeader";
 import FastImage from "react-native-fast-image";
-import { currentMembers } from "../../../../apollo/cache";
+import { currentMembers, myColor, myself } from "../../../../apollo/cache";
 import { NavLeft } from "../../../../components/NavLeft";
 import { FETCH_USERS } from "../../../../gql/queries/userQueries";
 
@@ -41,27 +41,13 @@ interface EventSettingProps {
 }
 
 function EventSettings({ navigation, route }: EventSettingProps) {
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        height: 80,
-        backgroundColor: "#222",
-      },
-      headerTitleStyle: { color: "white" },
-      headerTitle: () => <NavHeader name="Edit" />,
-      headerLeft: () => (
-        <NavLeft route={route} navigation={navigation} source={event.eventDP} />
-      ),
-    });
-  }, [navigation]);
-
   const event = useSelector((state: RootState) => state.currentEvent);
   const [friends, setFriends] = useState<Array<User>>([]);
   const dispatch = useDispatch();
 
   // Fetch Friends
   const { loading, error, data } = useQuery(FETCH_USERS, {
-    variables: { userIds: route.params.myself.friendships },
+    variables: { userIds: myself()!.friendships },
     onCompleted: (data) => {
       console.log("FETCH RESULT: ", data.users);
       setFriends(data.users);
@@ -114,9 +100,7 @@ function EventSettings({ navigation, route }: EventSettingProps) {
               }}
             />
             <Text style={styles.userName}>
-              {item.username == route.params.myself.username
-                ? "You"
-                : item.username}
+              {item.username == myself()!.username ? "You" : item.username}
             </Text>
           </View>
           <View style={styles.cellRight}></View>
@@ -208,29 +192,45 @@ function EventSettings({ navigation, route }: EventSettingProps) {
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           members={event.members}
-          myself={route.params.myself}
+          // myself={myself()!.friendships}
           eventId={event.id}
           friends={friends}
         />
       </Modal>
 
       {/* Event Image Container */}
-      <View style={{ flex: 0.4, flexDirection: "row" }}>
+      <View style={{ height: 150, flexDirection: "row" }}>
         <View
           style={{
             flex: 1,
-            // backgroundColor: "green",
             alignItems: "center",
             justifyContent: "center",
+            paddingLeft: 10,
           }}
         >
-          <View style={styles.eventDPContainer}>
-            <Image
+          {/* IMAGE CONTAINER */}
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: 93,
+              height: 93,
+              borderRadius: 50,
+              borderStyle: "solid",
+              borderWidth: 3,
+              borderColor: myColor(),
+            }}
+          >
+            <FastImage
               style={styles.eventDP}
               source={file ? { uri: file.uri } : { uri: event.eventDP }}
+              resizeMode="cover"
             />
           </View>
         </View>
+
+        {/* TEXT CONTAINER */}
         <View style={{ flex: 2, justifyContent: "center", padding: 10 }}>
           <TextInput
             style={{
@@ -309,26 +309,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#222",
+    backgroundColor: "#111",
   },
-  eventDPContainer: {
-    backgroundColor: "red",
-    display: "flex",
-    alignContent: "center",
-    justifyContent: "center",
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-    // position: "relative",
-  },
+
   eventDP: {
     display: "flex",
-    width: 100,
-    height: 100,
-    borderRadius: 20,
+    width: 90,
+    height: 90,
+    borderRadius: 50,
   },
-  titleInput: {},
-  descriptionInput: {},
+
   membersTitleContainer: {
     backgroundColor: "#333",
     width: "100%",

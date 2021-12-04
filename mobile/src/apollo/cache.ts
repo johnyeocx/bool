@@ -67,6 +67,7 @@ export const cache = new InMemoryCache({
             return myself();
           },
         },
+
         // CREATE EVENT
         chosenMembers: {
           read() {

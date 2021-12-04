@@ -10,6 +10,9 @@ import { gql, useMutation } from "@apollo/client";
 import { Message, ChatBucket } from "../../../../../types/types";
 import ThemeProvider, { ThemeContext } from "../../../../../ThemeProvider";
 import { Theme } from "../../../../../types/themeTypes";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../redux/reducers/reducer";
+import { myself } from "../../../../../apollo/cache";
 
 const GET_MESSAGES = gql`
   mutation ChatBuckets($eventId: MongoID!) {
@@ -30,7 +33,9 @@ interface ChatProps {
   event: Event;
 }
 
-function Chat({ event, username }: ChatProps) {
+function Chat() {
+  const event = useSelector((state: RootState) => state.currentEvent);
+  const [username, setUsername] = useState(myself()!.username);
   const [message, setMessage] = useState<any>("");
   const [messages, setMessages] = useState<Array<any>>([]);
   const [chatBuckets, setChatBuckets] = useState();
@@ -118,22 +123,42 @@ function Chat({ event, username }: ChatProps) {
       <View style={styles(theme).messageContainer}>
         <Messages messages={messages} username={username} />
       </View>
-      <View style={styles(theme).inputContainer}>
-        <ChatInput
-          value={message}
-          setValue={setMessage}
-          placeholder="Message"
-          handleSubmit={() => {
-            sendMessage();
+      <View>
+        <View
+          style={{
+            height: 50,
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: "#222",
+            width: Dimensions.get("window").width,
+            justifyContent: "center",
+            alignItems: "center",
           }}
-        />
-        <IconButton
-          icon="arrow-up-circle"
-          color="#fff"
-          size={30}
-          style={{}}
-          onPress={() => sendMessage()}
-        ></IconButton>
+        >
+          <ChatInput
+            value={message}
+            setValue={setMessage}
+            placeholder="Message"
+            handleSubmit={() => {
+              sendMessage();
+            }}
+          />
+          <IconButton
+            icon="arrow-up-circle"
+            color="#fff"
+            size={30}
+            style={{}}
+            onPress={() => sendMessage()}
+          ></IconButton>
+        </View>
+
+        <View
+          style={{
+            height: 34,
+            backgroundColor: "#222",
+            width: Dimensions.get("window").width,
+          }}
+        ></View>
       </View>
     </View>
   );
@@ -148,22 +173,13 @@ const styles = (theme: Theme) =>
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: theme.colors.backgroundPrimary,
+      backgroundColor: "#111",
     },
     messageContainer: {
       flex: 5,
       width: Dimensions.get("window").width,
       justifyContent: "flex-end",
       alignItems: "flex-end",
-    },
-    inputContainer: {
-      flex: 0.5,
-      display: "flex",
-      flexDirection: "row",
-      backgroundColor: "#444",
-      width: Dimensions.get("window").width,
-      justifyContent: "center",
-      alignItems: "center",
     },
     eventName: {
       fontSize: 20,
@@ -177,7 +193,7 @@ const styles = (theme: Theme) =>
       height: 30,
       borderWidth: 2,
       borderRadius: 5,
-      borderColor: "#222",
+      borderColor: "#111",
       position: "absolute",
       right: 20,
       top: 50,

@@ -3,7 +3,6 @@ import { FetchResult } from "@apollo/client/link/core/types";
 import { MutationFunctionOptions } from "@apollo/client/react/types/types";
 import { Dispatch } from "@reduxjs/toolkit";
 import { Event, User } from "../../types/types";
-import { RootState } from "./reducer";
 
 const initialState: Array<Event> = [];
 

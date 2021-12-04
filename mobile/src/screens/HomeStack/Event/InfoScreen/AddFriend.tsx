@@ -22,7 +22,7 @@ interface AddFriendProps {
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   modalVisible: boolean;
   members: Array<string>;
-  myself: User;
+  // myself: User;
   eventId: string;
   friends: Array<User>;
 }

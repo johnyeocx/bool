@@ -11,7 +11,7 @@ import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/core";
 import ChatScreen from "./ChatStack/ChatScreen";
 import CreateStack from "./CreateStack/Stack/CreateStack";
-import HomeStack from "./HomeStack/Stack/HomeStack.tsx";
+import HomeStack from "./HomeStack/HomeStack";
 import { myColor, myself } from "../apollo/cache";
 import FastImage from "react-native-fast-image";
 

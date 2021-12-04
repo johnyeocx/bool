@@ -1,6 +1,7 @@
 // styles.js
 
 import { StyleSheet } from "react-native";
+import { myColor } from "../../../../../apollo/cache";
 
 export default class StyleSheetFactory {
   static getSheet(isSender: boolean) {
@@ -8,7 +9,7 @@ export default class StyleSheetFactory {
       imageContainer: {
         borderStyle: "solid",
         borderWidth: 2,
-        borderColor: isSender ? "#ff2281" : "#7122fa",
+        borderColor: isSender ? `${myColor()}` : "#7122fa",
         padding: 10,
         borderRadius: 25,
         marginTop: 5,
